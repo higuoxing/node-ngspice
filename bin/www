@@ -4,15 +4,16 @@
  * Module dependencies.
  */
 
-var app = require('../app');
-var debug = require('debug')('node-ngspice:server');
-var http = require('http');
+const app = require('../app');
+const debug = require('debug')('node-ngspice:server');
+const http = require('http');
+const given_port = require('../configs/default').port;
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || given_port);
 app.set('port', port);
 
 /**
