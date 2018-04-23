@@ -1,0 +1,17 @@
+/*
+ * file: index.css
+ **/
+
+ body {
+   background-color: #fdf6e3;
+   padding: 0px;
+   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+ }
+
+.container {
+  margin-top: 30px;
+}
+
+.form-control {
+  margin-top: 10px;
+}
