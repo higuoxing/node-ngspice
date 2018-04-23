@@ -75,19 +75,20 @@ block content
     
   //- plotly.js things
   script.
-    var trace1 = {
-      x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-      y: [10, 15, 13, 17, 10, 15, 13, 17],
-      type: 'scatter'
-    };
-
-    var trace2 = {
-      x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-      y: [10, 15, 13, 1, 10, 15, 13, 1],
-      type: 'scatter'
-    };
-
-    var data = [trace1, trace2];
-
-    Plotly.newPlot('plot', data);
+    socket.on('netlist-data', (data) => {
+      console.log(data.t)
+      var trace1 = {
+        x: data.t,
+        y: data.x0,
+        type: 'scatter'
+      };
+      var trace2 = {
+        x: data.t,
+        y: data.x1,
+        type: 'scatter'
+      };
+      var data = [trace1, trace2];
+      Plotly.newPlot('plot', data);
+    });
+    
     
