@@ -33,6 +33,8 @@ And special thanks to [Online-NgSpice-Simulator](https://github.com/FOSSEE/Onlin
 ### TODO
 
 - [ ] Full documents
+- [ ] Code highlight
+- [ ] Rewrite using `Vue.js`
 
 ### Contribution
 

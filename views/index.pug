@@ -1,13 +1,43 @@
 extends layout
 
 block content
-  div(class='spice-ide')
-    div(class='spice-editor')
+  div(class="container")
+    div(class="row")
+      div(class="col-lg-8 col-lg-offset-1")
+        h2 Editor
+        p Please write your ngspice netlist in the below editor.
+      form(role="form")
+        div(class="form-group editorArea")
+          textarea(class="form-control", id="netlist", rows="20")
+            | * Author: FOSSEE
+            | * Date:
+            |
+            | *Netlist Connection Information
+            | r1  in out 1k
+            | c1  out gnd 10u
+            | v1  in gnd pwl(0m 0 0.5m 5 50m 5 50.5m 0 100m 0)
+            |
+            | *Analysis information
+            | .tran 10e-03 100e-03 0e-03
+            |
+            | *Please do not remove this line
+            | .control
+            | 	run
+            | .endc
+            | .end
+        h3() plot
+        textarea(class="form-control", id="plotOption", rows="3") v(in) v(out)
+        div(class="buttonArea")
+        button(id="doSubmit", class="btn btn-success") Submit
+        button(id="doSaveNetlist", class="btn btn-success") Save Netlist
+        button(id="doClear", class="btn btn-danger") Clear Plots
+        div(id="messages")
+          p(class="fromServer") Server acknowledgement goes here
+        div(class="container", id="plot", style="display:none;")
+        div(class="row")
+        div(id="graph", style="width:600px;height:400px;", class="col-lg-6")
       
-    div(class='spice-plot')
-      
-    div(class='terminal')
-      
+  //- scripts
   script(src='/socket.io/socket.io.js')
   - let socket_url = socket_conf;
   script.

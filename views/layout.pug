@@ -1,7 +1,21 @@
 doctype html
 html
   head
-    title= title
+    title= 'Node ❤️ NGSPICE'
+    link(rel="shortcut icon", type="image/png", href="/images/favicon.png")
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/css/bootstrap.min.css')
+    script(src='/jquery.slim.min.js')
+    script(src='/umd/popper.min.js')
+    script(src='/js/bootstrap.min.js')
   body
+    nav(class='navbar navbar-expand-lg navbar-light bg-light')
+      a(class='navbar-brand', href='#') 
+        b NGSPICE WEB IDE
     block content
+  footer
+    div(class="footer-copyright py-3 text-center")
+      span © 2018 
+      a(href="https://higuoxing.com")
+        strong Higuoxing &nbsp;
+      span designed with ❤️
