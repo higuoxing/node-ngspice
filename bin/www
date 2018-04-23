@@ -8,7 +8,7 @@ const app = require('../app');
 const debug = require('debug')('node-ngspice:server');
 const http = require('http');
 const given_port = require('../configs/default').port;
-const socket_processor = require('../utils/socket').socket_processor;
+const socket_router = require('../sockets/socket').socket_router;
 
 /**
  * Get port from environment and store in Express.
@@ -36,7 +36,7 @@ server.on('listening', onListening);
  * web socket
  */
 io.on('connection', (socket) => {
-  socket_processor(socket);
+  socket_router(socket);
 });
 
 /**

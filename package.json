@@ -6,11 +6,15 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "bootstrap": "^4.1.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "~4.16.0",
     "http-errors": "~1.6.2",
+    "jquery": "^3.3.1",
     "morgan": "~1.9.0",
+    "plotly.js": "^1.36.1",
+    "popper.js": "^1.14.3",
     "pug": "2.0.0-beta11",
     "socket.io": "^2.1.0"
   }

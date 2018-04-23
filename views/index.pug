@@ -1,9 +1,17 @@
 extends layout
 
 block content
+  div(class='spice-ide')
+    div(class='spice-editor')
+      
+    div(class='spice-plot')
+      
+    div(class='terminal')
+      
   script(src='/socket.io/socket.io.js')
+  - let socket_url = socket_conf;
   script.
-    var socket = io.connect('http://localhost:3000');
+    let socket = io.connect('#{socket_url}');
     socket.on('event-test', function (data) {
       console.log(data);
       socket.emit('event-test', { my: 'data' });
