@@ -1,16 +1,20 @@
 module.exports = {
   socket_router: (socket) => {
-    // begin to load page signal
+    // loading page signal
     socket.emit('loading-page', { load: 'loading-page' });
 
     // socket router
-    socket.on('event-test', (data) => {
-      console.log(data);
+    socket.on('socket-id', async (data) => {
+      // connection success
+      const socket_id_process = require('./socket_id').socket_id_process;
+      let res = await socket_id_process(data);
+      socket.emit('socket_id', res);
     });
 
-    socket.on('socket-id', (data) => {
-      console.log('connection succeed');
-      console.log('socket-id:' + data.socket_id);
+    socket.on('netlist-data', async (data) => {
+      const netlist_data_process = require('./netlist_data').netlist_data_process;
+      let res = await netlist_data_process(data);
+      socket.emit('socket_id', res);
     });
   },
 }

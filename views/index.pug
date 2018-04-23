@@ -29,15 +29,15 @@ block content
               | 	run
               | .endc
               | .end
-            textarea(class="form-control", id="plotOption", rows="2") v(in) v(out)
+            textarea(class="form-control", id="plot_option", rows="2") v(in) v(out)
         div(class="buttonArea")
           button(id="run-code", class="btn btn-success", style='margin-right: 5px') Run Code
           button(id="save-netlist", class="btn btn-success", style='margin-right: 5px') Save Netlist
           button(id="clear-plot", class="btn btn-danger", style='margin-right: 5px') Clear Plots
-      div(id="graph col-lg-6 col-lg-offset-8", style='width: 500px; height: 500px', class="col-lg-6")
+      div(id="graph", style='width: 500px; height: 500px', class="col-lg-6")
         div(class="plot", id="plot", style='margin-top: 10px;')
-        div(id="messages")
-          div(class="fromServer alert alert-danger", role='alert') Server acknowledgement goes here
+        div(id="messages", style='margin-top: 10px;')
+          div(class="fromServer alert alert-danger", role='alert') Server messages goes here
   //- scripts
   script(src='/socket.io/socket.io.js')
   - let socket_url = socket_conf;
@@ -48,6 +48,31 @@ block content
     socket.on('loading-page', function (data) {
       socket.emit('socket-id', { socket_id: socket.id });
     });
+  script.
+    // button callback event
+    let netlist_content = document.getElementById('netlist');
+    let plot_option_content = document.getElementById('plot_option');
+    let submit_button = document.getElementById('run-code');
+    let save_netlist_button = document.getElementById('save-netlist');
+    let clear_plot_button = document.getElementById('clear-plot');
+    
+    // submit_button callback
+    submit_button.addEventListener('click', () => {
+      let netlist = netlist_content.value;
+      let plot_option = plot_option_content.value
+      socket.emit('netlist-data', { socket_id: socket.id, netlist: netlist, plot_option: plot_option });
+    });
+    
+    // save_netlist_button callback
+    save_netlist_button.addEventListener('click', () => {
+      // do nothing
+    });
+    
+    // clear_plot_button callback
+    clear_plot_button.addEventListener('click', () => {
+      Plotly.purge('plot');
+    });
+    
   //- plotly.js things
   script.
     var trace1 = {
@@ -65,3 +90,4 @@ block content
     var data = [trace1, trace2];
 
     Plotly.newPlot('plot', data);
+    
