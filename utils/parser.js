@@ -1,6 +1,7 @@
 module.exports = {
-  plot_parser: async (path) => {
-    const fs = require('fs');
-    
-  }
+  plot_option_parser: (plot_option) => {
+    // parse plot_option
+    let res = { y_label: plot_option.split(' ') };
+    return res;
+  },
 }

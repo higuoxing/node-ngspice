@@ -76,19 +76,12 @@ block content
   //- plotly.js things
   script.
     socket.on('netlist-data', (data) => {
-      console.log(data.t)
-      var trace1 = {
-        x: data.t,
-        y: data.x0,
-        type: 'scatter'
-      };
-      var trace2 = {
-        x: data.t,
-        y: data.x1,
-        type: 'scatter'
-      };
-      var data = [trace1, trace2];
-      Plotly.newPlot('plot', data);
+      // console.log(data);
+      let traces = [];
+      for (var i = 0; i < data.curve; i ++) {
+        traces.push({ x: data.x, y: data['y_' + i.toString()] });
+      }
+      Plotly.newPlot('plot', traces);
     });
     
     
