@@ -8,6 +8,7 @@ module.exports = {
     // ngspice subprocess
     const ngspice = spawn('ngspice', ['-p', '-r', netlist.netlist]);
     const plot_option_parser = require('./parser').plot_option_parser;
+    const parse_data_line = require('./parser').parse_data_line;
     let label_info = plot_option_parser(netlist.plot_option);
     let res = { curve: label_info.y_label.length, x: []/* blank dict */ };
 
@@ -47,7 +48,7 @@ module.exports = {
           input: fs.createReadStream(tmp_file_path + 'test.data'),
           terminal: false
         }).on('line', (line) => {
-          let arr = line.split('  ');
+          let arr = parse_data_line(line);
           // x-axis
           res.x.push(arr[0]);
           // y_axis
