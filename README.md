@@ -9,6 +9,8 @@ Node ❤ NGSPICE. (Frontend for NGSPICE)
 
 ![screenshot](./.screenshot/screenshot.jpg)
 
+![screenshot](./.screenshot/screenshot_1.jpg)
+
 ### Build& Deploy
 
 ```bash
