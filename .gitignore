@@ -64,3 +64,4 @@ uploads/*
 
 # tmp
 tmp/*
+.DS_Store
