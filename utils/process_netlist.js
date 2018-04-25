@@ -15,6 +15,7 @@ module.exports = {
     // init res;
     for (var i = 0; i < label_info.y_label.length; i ++) {
       res['y_' + i.toString()] = [];
+      res['y_' + i.toString() + 'name'] = label_info.y_label[i];
     }
 
     // write to tmp file
@@ -27,7 +28,7 @@ module.exports = {
     // write plot option
     setTimeout(function() {
         ngspice.stdin.write('source ' + tmp_file_path + 'test.sp\n');
-        ngspice.stdin.write('wrdata ' + tmp_file_path + 'test.data ' + netlist.plot_option);
+        ngspice.stdin.write('wrdata ' + tmp_file_path + 'test.data ' + label_info.y_label.join(' '));
         ngspice.stdin.end();
     }, 100);
 

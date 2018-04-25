@@ -48,8 +48,8 @@ block content
           button(id="run-code", class="btn btn-success", style='margin-right: 5px') Run Code
           button(id="save-netlist", class="btn btn-success", style='margin-right: 5px') Save Netlist
           button(id="clear-plot", class="btn btn-danger", style='margin-right: 5px') Clear Plots
-      div(id="graph", style='width: 500px; height: 500px', class="col-lg-6")
-        div(class="plot", id="plot", style='margin-top: 10px;')
+      div(id="graph", style='width: 600px; height: 500px', class="col-lg-6")
+        div(class="plot", id="plot", style='margin-top: 10px; width: 600px;')
         div(id="messages", style='margin-top: 10px;')
           div(class="fromServer alert alert-danger", role='alert') Server messages goes here
   //- scripts
@@ -93,7 +93,7 @@ block content
       // console.log(data);
       let traces = [];
       for (var i = 0; i < data.curve; i ++) {
-        traces.push({ x: data.x, y: data['y_' + i.toString()] });
+        traces.push({ x: data.x, y: data['y_' + i.toString()], name: data['y_' + i.toString() + 'name'] });
       }
       Plotly.newPlot('plot', traces);
     });

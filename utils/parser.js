@@ -1,7 +1,7 @@
 module.exports = {
   plot_option_parser: (plot_option) => {
     // parse plot_option
-    let res = { y_label: plot_option.split(' ') };
+    let res = { y_label: plot_option.split(';') };
     return res;
   },
   parse_data_line: (line) => {
