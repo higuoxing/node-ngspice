@@ -61,24 +61,18 @@ module.exports = {
           for (var i = 0; i < arr.length / 2; i ++) {
             if (res['y_' + i.toString()]) {
               // safe push
-              if (new_plot_flag) {
-                res['y_' + i.toString()][res['y_' + i.toString()].length-1] = null;
-              } else {
-                // do nothing
-              }
-              res['y_' + i.toString()].push(arr[2*i+1]);
             } else {
               // initialize and push
               res['y_' + i.toString()] = [];
               res['y_' + i.toString() + 'name'] = label_info.y_label[i];
-              if (new_plot_flag) {
-                res['y_' + i.toString()][res['y_' + i.toString()].length-1] = null;
-              } else {
-                // do nothing
-              }
-              res['y_' + i.toString()].push(arr[2*i+1]);
             }
-            // do nothing
+            if (new_plot_flag) {
+              // set break point
+              res['y_' + i.toString()][res['y_' + i.toString()].length-1] = null;
+            } else {
+              // do nothing
+            }
+            res['y_' + i.toString()].push(arr[2*i+1]);
           };
           // console.log(label_info);
         }).on('close', () => {
