@@ -43,7 +43,7 @@ block content
               | 	run
               | .endc
               | .end
-            textarea(class="form-control", id="plot_option", rows="2") v(in) v(out) v(4, 5)
+            textarea(class="form-control", id="plot_option", rows="2") v(in); v(out); v(4, 5)
         div(class="buttonArea")
           button(id="run-code", class="btn btn-success", style='margin-right: 5px') Run Code
           button(id="save-netlist", class="btn btn-success", style='margin-right: 5px') Save Netlist
@@ -51,7 +51,7 @@ block content
       div(id="graph", style='width: 600px; height: 500px', class="col-lg-6")
         div(class="plot", id="plot", style='margin-top: 10px; width: 600px;')
         div(id="messages", style='margin-top: 10px;')
-          div(class="fromServer alert alert-danger", role='alert') Server messages goes here
+          div(class="fromServer alert alert-success", role='alert') Server messages goes here
   //- scripts
   script(src='/socket.io/socket.io.js')
   - let socket_url = socket_conf;
