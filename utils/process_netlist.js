@@ -54,7 +54,11 @@ module.exports = {
           res.x.push(arr[0]);
           // y_axis
           for (var i = 0; i < arr.length / 2; i ++) {
-            res['y_' + i.toString()].push(arr[2*i+1]);
+            if (res['y_' + i.toString()]) {
+              // safe push
+              res['y_' + i.toString()].push(arr[2*i+1]);
+            }
+            // do nothing
           };
           // console.log(label_info);
         }).on('close', () => {
