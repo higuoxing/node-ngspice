@@ -93,7 +93,7 @@ block content
       // console.log(data);
       let traces = [];
       for (var i = 0; i < data.curve; i ++) {
-        traces.push({ x: data.x, y: data['y_' + i.toString()], name: data['y_' + i.toString() + 'name'] });
+        traces.push({ x: data.x, y: data['y_' + i.toString()], name: data['y_' + i.toString() + 'name'], connectgaps: false });
       }
       Plotly.newPlot('plot', traces);
     });

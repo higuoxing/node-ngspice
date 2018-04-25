@@ -13,10 +13,7 @@ module.exports = {
     let res = { curve: label_info.y_label.length, x: []/* blank dict */ };
 
     // init res;
-    for (var i = 0; i < label_info.y_label.length; i ++) {
-      res['y_' + i.toString()] = [];
-      res['y_' + i.toString() + 'name'] = label_info.y_label[i];
-    }
+    // FIXME: initialising when needed will be better
 
     // write to tmp file
     await fs.writeFile(tmp_file_path + 'test.sp',
@@ -52,10 +49,33 @@ module.exports = {
           let arr = parse_data_line(line);
           // x-axis
           res.x.push(arr[0]);
+          let new_plot_flag = 0; // break point flag
+          // FIXME: hardcode threshold
+          if (arr[0] < res.x[res.x.length - 2] - 0.1) {
+            // new plot flag
+            new_plot_flag = 1;
+          } else {
+            new_plot_flag = 0;
+          }
           // y_axis
           for (var i = 0; i < arr.length / 2; i ++) {
             if (res['y_' + i.toString()]) {
               // safe push
+              if (new_plot_flag) {
+                res['y_' + i.toString()][res['y_' + i.toString()].length-1] = null;
+              } else {
+                // do nothing
+              }
+              res['y_' + i.toString()].push(arr[2*i+1]);
+            } else {
+              // initialize and push
+              res['y_' + i.toString()] = [];
+              res['y_' + i.toString() + 'name'] = label_info.y_label[i];
+              if (new_plot_flag) {
+                res['y_' + i.toString()][res['y_' + i.toString()].length-1] = null;
+              } else {
+                // do nothing
+              }
               res['y_' + i.toString()].push(arr[2*i+1]);
             }
             // do nothing
