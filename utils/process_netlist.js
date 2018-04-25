@@ -59,9 +59,7 @@ module.exports = {
           }
           // y_axis
           for (var i = 0; i < arr.length / 2; i ++) {
-            if (res['y_' + i.toString()]) {
-              // safe push
-            } else {
+            if (!res['y_' + i.toString()]) {
               // initialize and push
               res['y_' + i.toString()] = [];
               res['y_' + i.toString() + 'name'] = label_info.y_label[i];
@@ -69,8 +67,6 @@ module.exports = {
             if (new_plot_flag) {
               // set break point
               res['y_' + i.toString()][res['y_' + i.toString()].length-1] = null;
-            } else {
-              // do nothing
             }
             res['y_' + i.toString()].push(arr[2*i+1]);
           };
