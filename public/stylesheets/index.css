@@ -12,6 +12,10 @@
   margin-top: 0px;
 }
 
+textarea {
+    font-family: monospace;
+}
+
 .form-control {
   margin-top: 10px;
 }
