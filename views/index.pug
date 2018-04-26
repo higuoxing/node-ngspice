@@ -6,7 +6,7 @@ block content
   div(class="container")
     div(class='navbar')
       h1(class='project-name') 
-        b Yet another NGSPICE frontend project
+        b NGSPICE Playground
     div(class="row")
       div(class="col-lg-6")
         form(role="form")
@@ -51,7 +51,7 @@ block content
       div(id="graph", style='width: 600px; height: 500px', class="col-lg-6")
         div(class="plot", id="plot", style='margin-top: 10px; width: 600px;')
         div(id="messages", style='margin-top: 10px;')
-          div(class="fromServer alert alert-success", role='alert') Server messages goes here
+          div(class="fromServer alert alert-success", role='alert') Server message goes here
   //- scripts
   script(src='/socket.io/socket.io.js')
   - let socket_url = socket_conf;

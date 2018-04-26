@@ -8,6 +8,10 @@
    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
  }
 
+ .project-name {
+   color: #aaaaaa;
+ }
+
 .container {
   margin-top: 0px;
 }
