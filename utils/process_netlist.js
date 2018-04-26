@@ -30,7 +30,7 @@ module.exports = {
     }, 100);
 
     ngspice.stdout.on('data', (data) => {
-      // console.log(data.toString());
+      console.log(data.toString());
     });
 
     ngspice.stderr.on('data', (data) => {
@@ -51,7 +51,7 @@ module.exports = {
           res.x.push(arr[0]);
           let new_plot_flag = 0; // break point flag
           // FIXME: hardcode threshold
-          if (arr[0] < res.x[res.x.length - 2] - 0.1) {
+          if (arr[0] < res.x[res.x.length - 2] - 0) {
             // new plot flag
             new_plot_flag = 1;
           } else {
