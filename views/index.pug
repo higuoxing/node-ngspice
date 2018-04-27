@@ -92,8 +92,8 @@ block content
     socket.on('netlist-data', (data) => {
       // console.log(data);
       let traces = [];
-      for (var i = 0; i < data.curve; i ++) {
-        traces.push({ x: data.x, y: data['y_' + i.toString()], name: data['y_' + i.toString() + 'name'], connectgaps: false });
+      for (var i = 0; i < data.curves.length; i ++) {
+        traces.push({ x: data.curves[i].x, y: data.curves[i].y, connectgaps: false });
       }
       Plotly.newPlot('plot', traces);
     });
