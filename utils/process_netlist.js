@@ -17,7 +17,7 @@ module.exports = {
      *   curves: [ { x: [], y: [], color: Color, name: String } ]
      * }
      * */
-    let res = { curves: [] /* blank list */ };
+    let res = { curves: [], label_info: label_info /* blank list */ };
 
     /*
      * parser flag
