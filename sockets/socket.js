@@ -1,5 +1,6 @@
 module.exports = {
   socket_router: (socket) => {
+
     // loading page signal
     socket.emit('loading-page', { load: 'loading-page' });
 
@@ -14,8 +15,14 @@ module.exports = {
     socket.on('netlist-data', async (data) => {
       const netlist_data_process = require('./netlist_data').netlist_data_process;
       let res = await netlist_data_process(data);
-      
+
       socket.emit('netlist-data', res);
+    });
+
+    socket.on('disconnect', async (data) => {
+      // yoda grammar...
+      const disconnect_process = require('../utils/disconnect_process').disconnect_process;
+      await disconnect_process(socket.id);
     });
   },
 }

@@ -2,6 +2,8 @@ extends layout
 
 block content
   link(rel='stylesheet', href='/stylesheets/index.css')
+  //- link(rel='stylesheet', href='/stylesheets/lib/jquery.highlight-within-textarea.css')
+  //- script(src='/javascripts/lib/jquery.highlight-within-textarea.js')
   script(src='/plotly.min.js')
   div(class="container")
     div(class='navbar')
@@ -12,6 +14,7 @@ block content
         form(role="form")
           div(class="form-group editorArea")
             textarea(class="form-control", spellcheck='false', id="netlist", rows="15")
+              //- Example file
               | *** RF switch circuit ***
               |  * Author: Xing GUO
               |  * Example file
@@ -40,12 +43,13 @@ block content
               |
               | * Please do not remove this line
               | .control
-              | 	run
+              |   run
               | .endc
               | .end
             textarea(class="form-control", id="plot_option", spellcheck='false', rows="2") v(in); v(out); v(4, 5)
         div(class="buttonArea")
           button(id="run-code", class="btn btn-success", style='margin-right: 5px') Run Code
+          button(id="upload-netlist", class="btn btn-success", style='margin-right: 5px') Upload lib
           button(id="save-netlist", class="btn btn-success", style='margin-right: 5px') Save Netlist
           button(id="clear-plot", class="btn btn-danger", style='margin-right: 5px') Clear Plots
       div(id="graph", style='width: 600px; height: 500px', class="col-lg-6")
@@ -53,6 +57,7 @@ block content
         div(id="messages", style='margin-top: 10px;')
           div(class="fromServer alert alert-success", role='alert') Server message goes here
   //- scripts
+  
   script(src='/socket.io/socket.io.js')
   - let socket_url = socket_conf;
   //- socket things
