@@ -89,11 +89,14 @@ block content
     
   //- plotly.js things
   script.
+    let colors = ['rgb(148, 0, 211)', 'rgb(75, 0, 130)', 'rgb(0, 0, 255)', 
+                  'rgb(0, 255, 0)', 'rgb(255, 255, 0)', 'rgb(255, 127, 0)',
+                  'rgb(255, 0 , 0)' ]
     socket.on('netlist-data', (data) => {
       // console.log(data);
       let traces = [];
       for (var i = 0; i < data.curves.length; i ++) {
-        traces.push({ x: data.curves[i].x, y: data.curves[i].y, connectgaps: false });
+        traces.push({ x: data.curves[i].x, y: data.curves[i].y, connectgaps: false, marker: {color: colors[data.curves[i].belong_to] }});
       }
       Plotly.newPlot('plot', traces);
     });

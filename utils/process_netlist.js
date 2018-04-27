@@ -53,7 +53,6 @@ module.exports = {
       console.log(`stderr: ${data}`);
     });
 
-
     // return a promise
     return new Promise((resolve, reject) => {
       ngspice.on('close', async (code) => {
