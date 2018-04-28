@@ -1,9 +1,15 @@
 module.exports = {
+  // parse plot option
   plot_option_parser: (plot_option) => {
     // parse plot_option
-    let res = { y_label: plot_option.split(';') };
-    return res;
+    try {
+      let res = JSON.parse(plot_option);
+      return res;
+    } catch (e) {
+      console.log(e);
+    }
   },
+
   parse_data_line: (line, prev_flags) => {
     /*
      * return new_flags
@@ -91,7 +97,7 @@ module.exports = {
         }
       }
       new_flags = prev_flags;
-      
+
       return new_flags;
     }
   }

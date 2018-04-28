@@ -17,7 +17,7 @@ module.exports = {
      *   curves: [ { x: [], y: [], color: Color, name: String } ]
      * }
      * */
-    let res = { curves: [], label_info: label_info /* blank list */ };
+    let res = { curves: [], label_info: label_info.map((item) => {return item.name}) /* blank list */ };
 
     /*
      * parser flag
@@ -41,7 +41,7 @@ module.exports = {
     // write plot option
     setTimeout(function() {
         ngspice.stdin.write('source ' + tmp_file_path + 'test.sp\n');
-        ngspice.stdin.write('wrdata ' + tmp_file_path + 'test.data ' + label_info.y_label.join(' '));
+        ngspice.stdin.write('wrdata ' + tmp_file_path + 'test.data ' + label_info.map((item) => { return item.curve; }).join(' '));
         ngspice.stdin.end();
     }, 100);
 

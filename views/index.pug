@@ -6,7 +6,7 @@ block content
   //- script(src='/javascripts/lib/jquery.highlight-within-textarea.js')
   script(src='/plotly.min.js')
   div(class="container")
-    div(class='navbar')
+    div(class='navbar navbar-expand-lg navbar-light')
       h1(class='project-name') 
         b NGSPICE Playground
     div(class="row")
@@ -46,7 +46,7 @@ block content
               |   run
               | .endc
               | .end
-            textarea(class="form-control", id="plot_option", spellcheck='false', rows="2") v(in); v(out); v(4, 5)
+            textarea(class="form-control", id="plot_option", spellcheck='false', rows="2") [{"name": "v(in)", "curve": "v(in)"}, {"name": "v(out)", "curve": "v(out)"}]
         div(class="buttonArea")
           button(id="run-code", class="btn btn-success", style='margin-right: 5px') Run Code
           button(id="upload-netlist", class="btn btn-success", style='margin-right: 5px') Upload lib
@@ -98,16 +98,23 @@ block content
                   'rgb(255, 0 , 0)', 'rgb(255, 255, 0)', 'rgb(75, 0, 130)',
                   'rgb(0, 255, 0)']
     socket.on('netlist-data', (data) => {
-      // console.log(data);
+      console.log(data);
       let traces = [];
+      let curve_names = {};
       for (var i = 0; i < data.curves.length; i ++) {
+        let showLegend = false;
+        if (!curve_names[data.label_info[data.curves[i].belong_to]]) {
+          showLegend = true;
+          curve_names[data.label_info[data.curves[i].belong_to]] = 1;
+        }
+        
         traces.push({ x: data.curves[i].x, 
                       y: data.curves[i].y, 
                       connectgaps: false, 
-                      name: data.label_info.y_label[data.curves[i].belong_to],
+                      showlegend: showLegend,
+                      name: data.label_info[data.curves[i].belong_to],
                       marker: {color: colors[data.curves[i].belong_to]}});
       }
       Plotly.newPlot('plot', traces);
     });
-    
     
