@@ -20,6 +20,21 @@ $ npm install
 $ node ./bin/www
 ```
 
+### How to use
+
+This application is to plot vectors in ngspice. The plot option should be written in JSON form.
+
+##### Example
+
+```javascript
+[{ "name": "v(in)"   , "curve": "v(in)"   },
+ { "name": "v(out)"  , "curve": "v(out)"  },
+ { "name": "v(4, 5)" , "curve": "v(4, 5)" } ]
+```
+
+`name` : is the displayed name in plot legend
+`curve`: is the vector variable in ngspice 
+
 ### Appreciation
 
 ##### Standing on the shoulders of giants!
