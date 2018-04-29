@@ -49,6 +49,7 @@ module.exports = {
     ngspice.stdout.on('data', (data) => {
       let line = data.toString().split(/\r?\n/);
       for (let info of line) {
+        console.log(info);
         if (/^\s*$/.test(line.toString())) {
           // do nothing
         } else {
