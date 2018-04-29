@@ -48,12 +48,14 @@ module.exports = {
 
     ngspice.stdout.on('data', (data) => {
       let line = data.toString().split(/\r?\n/);
+
       for (let info of line) {
-        console.log(info);
-        if (/^\s*$/.test(line.toString())) {
-          // do nothing
-        } else {
+        // console.log(info);
+        if (info.toString()) {
+
           socket.emit('server-msg', { type: 'info', msg: info.toString() });
+        } else {
+          // do nothing
         }
       }
     });
@@ -61,10 +63,10 @@ module.exports = {
     ngspice.stderr.on('data', (data) => {
       let line = data.toString().split(/\r?\n/);
       for (let info of line) {
-        if (/^\s*$/.test(line.toString())) {
-          // do nothing
-        } else {
+        if (info.toString()) {
           socket.emit('server-msg', { type: 'error', msg: info.toString() });
+        } else {
+          // do nothing
         }
       }
     });
