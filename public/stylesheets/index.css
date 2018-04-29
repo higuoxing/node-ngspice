@@ -9,6 +9,7 @@
  }
 
  .project-name {
+   margin-top: 10px;
    color: #aaaaaa;
  }
 
@@ -22,4 +23,23 @@ textarea {
 
 .form-control {
   margin-top: 10px;
+}
+
+.buttonArea {
+  margin-top: 10px;
+}
+
+.option-title {
+  margin-top: 10px;
+}
+
+.terminal-title,
+.editor-title,
+.plot-area,
+.option-title {
+  font-size: 20px;
+}
+
+.terminal-text-area {
+  background-color: #ffffff;
 }

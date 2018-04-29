@@ -1,12 +1,12 @@
 module.exports = {
   // parse plot option
-  plot_option_parser: (plot_option) => {
+  plot_option_parser: async (plot_option) => {
     // parse plot_option
     try {
       let res = JSON.parse(plot_option);
       return res;
     } catch (e) {
-      console.log(e);
+      throw e;
     }
   },
 

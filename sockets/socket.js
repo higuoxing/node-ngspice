@@ -14,8 +14,7 @@ module.exports = {
 
     socket.on('netlist-data', async (data) => {
       const netlist_data_process = require('./netlist_data').netlist_data_process;
-      let res = await netlist_data_process(data);
-
+      let res = await netlist_data_process(data, socket);
       socket.emit('netlist-data', res);
     });
 

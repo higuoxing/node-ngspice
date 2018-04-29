@@ -6,14 +6,15 @@ block content
   //- script(src='/javascripts/lib/jquery.highlight-within-textarea.js')
   script(src='/plotly.min.js')
   div(class="container")
-    div(class='navbar navbar-expand-lg navbar-light')
-      h1(class='project-name') 
-        b NGSPICE Playground
+    //- div(class='navbar navbar-expand-lg navbar-light')
+    h1(class='project-name', style='text-align: center') 
+      b NGSPICE Playground
     div(class="row")
       div(class="col-lg-6")
         form(role="form")
           div(class="form-group editorArea")
-            textarea(class="form-control", spellcheck='false', id="netlist", rows="15")
+            h4(class='editor-title') Editor
+            textarea(class="form-control", spellcheck='false', id="netlist", rows="17")
               //- Example file
               | *** RF switch circuit ***
               |  * Author: Xing GUO
@@ -46,18 +47,27 @@ block content
               |   run
               | .endc
               | .end
-            textarea(class="form-control", id="plot_option", spellcheck='false', rows="2") [{"name": "v(in)", "curve": "v(in)"}, {"name": "v(out)", "curve": "v(out)"}]
+      div(class="plot", id="plot", style='margin-top: 35px; width: 500px; height: 420px')
+    div(class='row')
+      div(class='col-lg-6')
+        h4(class='option-title') Plot Option
+        textarea(class="form-control", id="plot_option", spellcheck='false', rows="3") [{"name": "v(in)", "curve": "v(in)"}, {"name": "v(out)", "curve": "v(out)"}]
         div(class="buttonArea")
           button(id="run-code", class="btn btn-success", style='margin-right: 5px') Run Code
           button(id="upload-netlist", class="btn btn-success", style='margin-right: 5px') Upload lib
           button(id="save-netlist", class="btn btn-success", style='margin-right: 5px') Save Netlist
           button(id="clear-plot", class="btn btn-danger", style='margin-right: 5px') Clear Plots
-      div(id="graph", style='width: 600px; height: 500px', class="col-lg-6")
-        div(class="plot", id="plot", style='margin-top: 10px; width: 600px;')
-        div(id="messages", style='margin-top: 10px;')
-          div(class="fromServer alert alert-success", role='alert') Server message goes here
+      div(class='terminal', style='width: 500px;')
+        //- div(class='terminal', style='width=600px')
+        //-   h4(class='terminal-title') Info Area
+        h4(class='terminal-title', style='margin-top: 10px;') Terminal Output
+        div(id='terminal', class='terminal-text-area', style='margin-top: 5px; height:150px; overflow:auto;')
+          div(class='initial-info')
+            span(class='badge badge-info') Info
+            span &nbsp;
+            span Server message will be displayed here :)
+          
   //- scripts
-  
   script(src='/socket.io/socket.io.js')
   - let socket_url = socket_conf;
   //- socket things
@@ -67,6 +77,7 @@ block content
     socket.on('loading-page', function (data) {
       socket.emit('socket-id', { socket_id: socket.id });
     });
+    
   script.
     // button callback event
     let netlist_content = document.getElementById('netlist');
@@ -92,13 +103,49 @@ block content
       Plotly.purge('plot');
     });
     
+  script.
+    // display server message
+    socket.on('server-msg', (data) => {
+      let terminal = document.getElementById('terminal');
+      if (data.type == 'error') {
+        let div = document.createElement('div');
+        let badge = document.createElement('span');
+        let text = document.createTextNode(' error ');
+        badge.className = 'badge badge-danger';
+        badge.appendChild(text);
+        div.appendChild(badge);
+        let blank = document.createElement('span');
+        text = document.createTextNode(' ');
+        div.appendChild(text);
+        let msg = document.createElement('span');
+        text = document.createTextNode(data.msg);
+        div.appendChild(text);
+        terminal.appendChild(div);
+      } else if (data.type == 'info') {
+        let div = document.createElement('div');
+        let badge = document.createElement('span');
+        let text = document.createTextNode(' info ');
+        badge.className = 'badge badge-info';
+        badge.appendChild(text);
+        div.appendChild(badge);
+        let blank = document.createElement('span');
+        text = document.createTextNode(' ');
+        div.appendChild(text);
+        let msg = document.createElement('span');
+        text = document.createTextNode(data.msg);
+        div.appendChild(text);
+        terminal.appendChild(div);
+      }
+    });
+    
   //- plotly.js things
   script.
     let colors = ['rgb(148, 0, 211)', 'rgb(255, 127, 0)', 'rgb(0, 0, 255)', 
                   'rgb(255, 0 , 0)', 'rgb(255, 255, 0)', 'rgb(75, 0, 130)',
                   'rgb(0, 255, 0)']
     socket.on('netlist-data', (data) => {
-      console.log(data);
+      
+      // plot graph
       let traces = [];
       let curve_names = {};
       for (var i = 0; i < data.curves.length; i ++) {

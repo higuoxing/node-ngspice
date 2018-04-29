@@ -1,5 +1,5 @@
 module.exports = {
-  process_netlist: async (netlist) => {
+  process_netlist: async (netlist, socket) => {
     // process submitt code
     // write netlist to file
     const fs = require('fs');
@@ -9,7 +9,8 @@ module.exports = {
     const ngspice = spawn('ngspice', ['-p', '-r', netlist.netlist]);
     const plot_option_parser = require('./parser').plot_option_parser;
     const parse_data_line = require('./parser').parse_data_line;
-    let label_info = plot_option_parser(netlist.plot_option);
+
+    let label_info = await plot_option_parser(netlist.plot_option);
 
     /*
      * return:
@@ -17,7 +18,7 @@ module.exports = {
      *   curves: [ { x: [], y: [], color: Color, name: String } ]
      * }
      * */
-    let res = { curves: [], label_info: label_info.map((item) => {return item.name}) /* blank list */ };
+    let res = { curves: [], label_info: label_info.map((item) => { return item.name }) /* blank list */ };
 
     /*
      * parser flag
@@ -46,11 +47,25 @@ module.exports = {
     }, 100);
 
     ngspice.stdout.on('data', (data) => {
-      console.log(data.toString());
+      let line = data.toString().split(/\r?\n/);
+      for (let info of line) {
+        if (/^\s*$/.test(line.toString())) {
+          // do nothing
+        } else {
+          socket.emit('server-msg', { type: 'info', msg: info.toString() });
+        }
+      }
     });
 
     ngspice.stderr.on('data', (data) => {
-      console.log(`stderr: ${data}`);
+      let line = data.toString().split(/\r?\n/);
+      for (let info of line) {
+        if (/^\s*$/.test(line.toString())) {
+          // do nothing
+        } else {
+          socket.emit('server-msg', { type: 'error', msg: info.toString() });
+        }
+      }
     });
 
     // return a promise

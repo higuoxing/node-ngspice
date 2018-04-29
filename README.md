@@ -7,9 +7,7 @@ Node ❤ NGSPICE. (Frontend for NGSPICE)
 
 ### Screenshots
 
-![screenshot](./.screenshot/screenshot_0.jpg)
-
-![screenshot](./.screenshot/screenshot_1.jpg)
+![screenshot](./.screenshot/screenshot.jpg)
 
 ### Build& Deploy
 
@@ -33,7 +31,7 @@ This application is to plot vectors in ngspice. The plot option should be writte
 ```
 
 `name` : is the displayed name in plot legend
-`curve`: is the vector variable in ngspice 
+`curve`: is the vector variable in ngspice
 
 ### Appreciation
 
