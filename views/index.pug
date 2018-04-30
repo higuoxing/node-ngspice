@@ -50,7 +50,10 @@ block content
     div(class='row')
       div(class='col-lg-6')
         h4(class='option-title') Plot Option
-        textarea(class="form-control", id="plot_option", spellcheck='false', rows="3") [{"name": "v(in)", "curve": "v(in)"}, {"name": "v(out)", "curve": "v(out)"}]
+        textarea(class="form-control", id="plot_option", spellcheck='false', rows="3") 
+          | [{"name": "v(in)", "curve": "v(in)"}, 
+          |  {"name": "v(out)", "curve": "v(out)"},
+          |  {"name": "v(4, 5)", "curve": "v(4, 5)"}]
         div(class="buttonArea")
           button(id="run-code", class="btn btn-success", style='margin-right: 5px') Run Code
           button(id="upload-netlist", class="btn btn-success", style='margin-right: 5px') Upload lib
