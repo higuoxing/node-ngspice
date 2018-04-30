@@ -10,7 +10,9 @@ module.exports = {
     const plot_option_parser = require('./parser').plot_option_parser;
     const parse_data_line = require('./parser').parse_data_line;
 
-    let label_info = await plot_option_parser(netlist.plot_option);
+    let label_info = await plot_option_parser(netlist.plot_option).catch((e) => {
+      socket.emit('server-msg', { type: 'error', msg: 'Plot Option parsing error' });
+    });
 
     /*
      * return:
