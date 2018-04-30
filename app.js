@@ -18,10 +18,6 @@ app.use(cookieParser());
 
 // static files
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'node_modules/bootstrap/dist')));             // static bootstrap
-app.use(express.static(path.join(__dirname, 'node_modules/jquery/dist')));                // static jquery
-app.use(express.static(path.join(__dirname, 'node_modules/popper.js/dist')));             // static popper.js
-app.use(express.static(path.join(__dirname, 'node_modules/plotly.js/dist')));             // static plotly.js
 
 // router-controller
 router(app);

@@ -4,7 +4,6 @@ block content
   link(rel='stylesheet', href='/stylesheets/index.css')
   //- link(rel='stylesheet', href='/stylesheets/lib/jquery.highlight-within-textarea.css')
   //- script(src='/javascripts/lib/jquery.highlight-within-textarea.js')
-  script(src='/plotly.min.js')
   div(class="container")
     //- div(class='navbar navbar-expand-lg navbar-light')
     h1(class='project-name', style='text-align: center') 
@@ -66,9 +65,7 @@ block content
             span(class='badge badge-info') Info
             span &nbsp;
             span Server message will be displayed here :)
-          
   //- scripts
-  script(src='/socket.io/socket.io.js')
   - let socket_url = socket_conf;
   //- socket things
   script.
