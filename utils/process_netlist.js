@@ -35,7 +35,7 @@ module.exports = {
     let new_flags = { flags: [], total_curves: 0 };
 
     // write to tmp file
-    await fs.writeFile(tmp_file_path + 'test.sp',
+    await fs.writeFile(tmp_file_path + socket.id + '-test.sp',
       netlist.netlist,
       (err) => {
         if (err) throw err;
@@ -43,8 +43,8 @@ module.exports = {
 
     // write plot option
     setTimeout(function() {
-        ngspice.stdin.write('source ' + tmp_file_path + 'test.sp\n');
-        ngspice.stdin.write('wrdata ' + tmp_file_path + 'test.data ' + label_info.map((item) => { return item.curve; }).join(' '));
+        ngspice.stdin.write('source ' + tmp_file_path + socket.id + '-test.sp\n');
+        ngspice.stdin.write('wrdata ' + tmp_file_path + socket.id + '-test.data ' + label_info.map((item) => { return item.curve; }).join(' '));
         ngspice.stdin.end();
     }, 100);
 
@@ -80,7 +80,7 @@ module.exports = {
         const readline = require('readline');
         readline.createInterface({
           // create file read stream
-          input: fs.createReadStream(tmp_file_path + 'test.data'),
+          input: fs.createReadStream(tmp_file_path + socket.id + '-test.data'),
           terminal: false
         }).on('line', (line) => {
           /* about parsing line, please refer ngspice manual: 17.5.88 Wrdata */

@@ -21,7 +21,7 @@ module.exports = {
     socket.on('disconnect', async (data) => {
       // yoda grammar...
       const disconnect_process = require('../utils/disconnect_process').disconnect_process;
-      await disconnect_process(socket.id);
+      await disconnect_process(socket);
     });
   },
 }
