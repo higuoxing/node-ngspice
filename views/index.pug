@@ -66,7 +66,7 @@ block content
           div(class='terminal-edge')
             div(id='terminal', class='terminal-text-area', style='margin-top: 5px; margin-right: 5px;margin-left: 5px; height:150px; overflow:auto;')
               div(class='initial-info')
-                span(class='badge badge-info') Info
+                span(class='badge badge-success') success
                 span &nbsp;
                 span Server message will be displayed here :)
           
@@ -160,6 +160,21 @@ block content
         let badge = document.createElement('span');
         let text = document.createTextNode(' info ');
         badge.className = 'badge badge-info';
+        terminal.appendChild(div);
+        badge.appendChild(text);
+        div.appendChild(badge);
+        let blank = document.createElement('span');
+        text = document.createTextNode(' ');
+        div.appendChild(text);
+        let msg = document.createElement('span');
+        text = document.createTextNode(data.msg);
+        div.appendChild(text);
+        terminal.appendChild(div);
+      } else if (data.type == 'success') {
+        let div = document.createElement('div');
+        let badge = document.createElement('span');
+        let text = document.createTextNode(' success ');
+        badge.className = 'badge badge-success';
         badge.appendChild(text);
         div.appendChild(badge);
         let blank = document.createElement('span');
