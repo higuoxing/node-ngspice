@@ -9,16 +9,24 @@ html
     script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js", integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm", crossorigin="anonymous")
     script(src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js')
   body
-    nav(class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary")
+    nav(class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary", style='height: 55px;')
       a(class="navbar-brand" href="#") NGSPICE Playground
-      div(class="collapse navbar-collapse" id="navbarNavAltMarkup")
-        ul(class="navbar-nav")
-          li(class='nav-item')
+      button(class="navbar-toggler", type="button", data-toggle="collapse", data-target="#navbarNav", aria-controls="navbarNav", aria-expanded="false", aria-label="Toggle navigation")
+        span(class="navbar-toggler-icon")
+      div(class="collapse navbar-collapse" id="navbarNav")
+        ul(class="navbar-nav mr-auto")
+          li(class='nav-item active')
             a(class="nav-link", href="#") Home 
-          li(class='nav-item')
-            a(class="nav-link", href="#") Documents
-          li(class='nav-item')
+          li(class='nav-item active')
+            a(class="nav-link", href="#") Tutorials
+          li(class='nav-item active')
             a(class="nav-link", href="#") Examples
+          li(class='nav-item dropdown active')
+            a(a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") Documents
+            div(class="dropdown-menu", aria-labelledby="navbarDropdownMenuLink")
+              a(class="dropdown-item", href="#") 简体中文
+              a(class="dropdown-item", href="#") English
+      iframe(src="https://ghbtns.com/github-btn.html?user=higuoxing&repo=node-ngspice&type=star&count=true&size=large", frameborder="0", scrolling="0", width="160px", height="30px")
     block content
   footer(style='margin-top: 5px;')
     div(class="footer-copyright py-3 text-center")
