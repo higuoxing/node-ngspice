@@ -10,7 +10,9 @@ module.exports = {
         }
       });
       await fs.unlink(tmp_file_path + socket.id + '-test.data', (err) => {
-        console.log(err);
+        if (err) {
+          console.log(err);  
+        }
       });
     } catch (e) {
       // do nothing
