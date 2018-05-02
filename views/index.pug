@@ -15,7 +15,7 @@ block content
                 p(style='float: right; margin: 5px 5px 5px 5px; font-size: 15px;') First time? Read the 
                   a(href='#') tutorial
                   | &nbsp!
-              textarea(class="form-control", spellcheck='false', id="netlist", rows="17")
+              textarea(class="form-control", spellcheck='false', id="netlist", rows="17", style='border: 2px solid #000000; border-radius: 5px;')
                 //- Example file
                 | *** RF switch circuit ***
                 |  * Author: Xing GUO
@@ -48,12 +48,14 @@ block content
                 |   run
                 | .endc
                 | .end
-              strong ⚠️ Warning: Your data will be cleared after closing the browser  ;)
-        div(class="plot", id="plot", style='margin-top: 35px; width: 500px; height: 420px;')
+              div(class='warning-wrapper')
+                strong(class='warning', style='margin: 5px 5px 5px 5px;') ⚠️ Warning: Your data will be cleared after closing the browser  ;)
+        div(class='plot-edge', id='plot-edge', style='margin-top: 35px; width: 500px; height: 465px; border: 2px solid #000000; border-radius: 5px;')
+          div(class="plot", id="plot", style='margin: 10px 10px 10px 10px;')
       div(class='row')
         div(class='col-lg-6')
           h4(class='option-title') Plot Option
-          textarea(class="form-control", id="plot_option", spellcheck='false', rows="3") 
+          textarea(class="form-control", id="plot_option", spellcheck='false', rows="3", style='border: 2px solid #000000; border-radius: 5px;') 
             | [{"name": "v(in)", "curve": "v(in)"}, 
             |  {"name": "v(4,5)", "curve": "v(4,5)"},
             |  {"name": "v(out)", "curve": "v(out)"}]
@@ -66,8 +68,8 @@ block content
           //- div(class='terminal', style='width=600px')
           //-   h4(class='terminal-title') Info Area
           h4(class='terminal-title', style='margin-top: 10px;') Terminal Output
-          div(class='terminal-edge')
-            div(id='terminal', class='terminal-text-area', style='margin-top: 5px; margin-right: 5px;margin-left: 5px; height:150px; overflow:auto;')
+          div(class='terminal-edge', style='border: 2px solid #000000; border-radius: 5px;')
+            div(id='terminal', class='terminal-text-area', style='margin-top: 5px; margin-bottom: 5px; margin-right: 5px;margin-left: 5px; height:125px; overflow:auto;')
               div(class='initial-info')
                 span(class='badge badge-success') success
                 span &nbsp;
@@ -195,7 +197,19 @@ block content
   script.
     let colors = ['rgb(148, 0, 211)', 'rgb(255, 127, 0)', 'rgb(0, 0, 255)', 
                   'rgb(255, 0 , 0)', 'rgb(255, 255, 0)', 'rgb(75, 0, 130)',
-                  'rgb(0, 255, 0)']
+                  'rgb(0, 255, 0)'];
+    let layout = {
+      autosize: false,
+      width: 465,
+      height: 435,
+      margin: {
+        l: 50,
+        r: 50,
+        b: 50,
+        t: 50,
+        pad: 4
+      }
+    };
     socket.on('netlist-data', (data) => {
       
       // plot graph
@@ -215,6 +229,6 @@ block content
                       name: data.label_info[data.curves[i].belong_to],
                       marker: {color: colors[data.curves[i].belong_to]}});
       }
-      Plotly.newPlot('plot', traces);
+      Plotly.newPlot('plot', traces, layout);
     });
     
