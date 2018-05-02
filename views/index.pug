@@ -15,7 +15,7 @@ block content
                 p(style='float: right; margin: 5px 5px 5px 5px; font-size: 15px;') First time? Read the 
                   a(href='#') tutorial
                   | &nbsp!
-              textarea(class="form-control", spellcheck='false', id="netlist", rows="17", style='border: 2px solid #000000; border-radius: 5px;')
+              textarea(class="form-control", spellcheck='false', id="netlist", rows="16", style='border: 2px solid #000000; border-radius: 5px;')
                 //- Example file
                 | *** RF switch circuit ***
                 |  * Author: Xing GUO
@@ -49,7 +49,11 @@ block content
                 | .endc
                 | .end
               div(class='warning-wrapper')
-                strong(class='warning', style='margin: 5px 5px 5px 5px;') ⚠️ Warning: Your data will be cleared after closing the browser  ;)
+                div(class='warning-wrapper')
+                  strong(class='warning') ⚠️ Warning: Your data will be cleared after closing this page  ; )
+                button(id='save-netlist', style='color: #ffffff; border: none', class='btn-link')
+                  span(class="badge badge-warning badge-pill") Press me
+                strong &nbsp to save Netlist
         div(class='plot-edge', id='plot-edge', style='margin-top: 35px; width: 500px; height: 465px; border: 2px solid #000000; border-radius: 5px;')
           div(class="plot", id="plot", style='margin: 10px 10px 10px 10px;')
       div(class='row')
@@ -59,11 +63,12 @@ block content
             | [{"name": "v(in)", "curve": "v(in)"}, 
             |  {"name": "v(4,5)", "curve": "v(4,5)"},
             |  {"name": "v(out)", "curve": "v(out)"}]
-          div(class="buttonArea")
-            button(id="run-code", class="btn btn-success", style='margin-right: 5px; width: 120px;') Run Code
-            button(id="upload-lib", class="btn btn-success", style='margin-right: 5px; width: 120px;') Upload Lib
-            button(id="save-netlist", class="btn btn-success", style='margin-right: 5px; width: 120px;') Save Netlist
-            button(id="clear-plot", class="btn btn-danger", style='margin-right: 5px; width: 120px;') Clear Plots
+          div(class="buttonArea input-group")
+            button(id="run-code", class="btn btn-success input-group-btn", style='margin-right: 5px; width: 120px;') Run Code
+            input(type="file", class="form-control-file", id="file", style='display: none;')
+            input(id='upload-button', type='button', class='btn btn-success input-group-btn', style='margin-right: 5px; width: 120px;', value='Upload Lib')
+            button(id="clear-plot", class="btn btn-danger input-group-btn", style='margin-right: 5px; width: 120px;') Clear Plots
+            
         div(class='terminal', style='width: 500px;')
           //- div(class='terminal', style='width=600px')
           //-   h4(class='terminal-title') Info Area
@@ -87,11 +92,30 @@ block content
     });
     
   script.
+    // upload-btn ajax
+    $(document).ready(function () {
+      $("#upload-button").click(function () {
+        let filename = $("file").val();
+        
+        $.ajax({
+          type: "POST",
+          url: "/upload",
+          enctype: 'multipart/form-data',
+          data: {
+              file: filename
+          },
+          success: function () {
+              alert("Data Uploaded: ");
+          }
+        });
+      });
+    });
+    
+  script.
     // button callback event
     let netlist_content = document.getElementById('netlist');
     let plot_option_content = document.getElementById('plot_option');
     let submit_button = document.getElementById('run-code');
-    let upload_lib_button = document.getElementById('upload-lib');
     let save_netlist_button = document.getElementById('save-netlist');
     let clear_plot_button = document.getElementById('clear-plot');
     
@@ -100,12 +124,6 @@ block content
       let netlist = netlist_content.value;
       let plot_option = plot_option_content.value
       socket.emit('netlist-data', { socket_id: socket.id, netlist: netlist, plot_option: plot_option });
-    });
-    
-    // upload lib files
-    upload_lib_button.addEventListener('click', () => {
-      // do nothing
-      
     });
     
     // save_netlist_button callback
@@ -118,14 +136,12 @@ block content
       var downloadLink = document.createElement("a");
       downloadLink.download = fileNameToSaveAs;
       downloadLink.innerHTML = "Download File";
-      if (window.webkitURL != null)
-      {
+      if (window.webkitURL != null) {
           // Chrome allows the link to be clicked
           // without actually adding it to the DOM.
           downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
       }
-      else
-      {
+      else {
           // Firefox requires the link to be added to the DOM
           // before it can be clicked.
           downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
@@ -133,7 +149,6 @@ block content
           downloadLink.style.display = "none";
           document.body.appendChild(downloadLink);
       }
-
       downloadLink.click();
     });
     
