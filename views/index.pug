@@ -4,7 +4,7 @@ block content
   link(rel='stylesheet', href='/stylesheets/index.css')
   //- link(rel='stylesheet', href='/stylesheets/lib/jquery.highlight-within-textarea.css')
   //- script(src='/javascripts/lib/jquery.highlight-within-textarea.js')
-  script(src='/plotly.min.js')
+  script(src='https://cdn.plot.ly/plotly-latest.min.js')
   div(class='page')
     div(class="container")
       div(class="row")
@@ -46,11 +46,14 @@ block content
                 | .endc
                 | .end
               strong ⚠️ Warning: Your data will be cleared after closing the browser  ;)
-        div(class="plot", id="plot", style='margin-top: 35px; width: 500px; height: 420px')
+        div(class="plot", id="plot", style='margin-top: 35px; width: 500px; height: 420px;')
       div(class='row')
         div(class='col-lg-6')
           h4(class='option-title') Plot Option
-          textarea(class="form-control", id="plot_option", spellcheck='false', rows="3") [{"name": "v(in)", "curve": "v(in)"}, {"name": "v(out)", "curve": "v(out)"}]
+          textarea(class="form-control", id="plot_option", spellcheck='false', rows="3") 
+            | [{"name": "v(in)", "curve": "v(in)"}, 
+            |  {"name": "v(4,5)", "curve": "v(4,5)"},
+            |  {"name": "v(out)", "curve": "v(out)"}]
           div(class="buttonArea")
             button(id="run-code", class="btn btn-success", style='margin-right: 5px') Run Code
             button(id="upload-lib", class="btn btn-success", style='margin-right: 5px') Upload Lib
@@ -103,6 +106,30 @@ block content
     // save_netlist_button callback
     save_netlist_button.addEventListener('click', () => {
       // do nothing
+      var textToWrite = document.getElementById('netlist').value;
+      var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
+      var fileNameToSaveAs = socket.id + '-netlist.txt';
+
+      var downloadLink = document.createElement("a");
+      downloadLink.download = fileNameToSaveAs;
+      downloadLink.innerHTML = "Download File";
+      if (window.webkitURL != null)
+      {
+          // Chrome allows the link to be clicked
+          // without actually adding it to the DOM.
+          downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+      }
+      else
+      {
+          // Firefox requires the link to be added to the DOM
+          // before it can be clicked.
+          downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+          downloadLink.onclick = downloadLink.remove();
+          downloadLink.style.display = "none";
+          document.body.appendChild(downloadLink);
+      }
+
+      downloadLink.click();
     });
     
     // clear_plot_button callback

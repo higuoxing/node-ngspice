@@ -7,9 +7,10 @@
    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
  }
 
-.container {
-  margin-top: 0px;
-}
+
+ .page {
+   margin-top: 60px;
+ }
 
 textarea {
     font-family: monospace;
