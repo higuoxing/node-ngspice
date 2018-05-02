@@ -7,8 +7,7 @@ Node ❤ NGSPICE. (Frontend for NGSPICE)
 
 ### Screenshots
 
-![screenshot](./.screenshot/screenshot_0.jpg)
-![screenshot](./.screenshot/screenshot_1.jpg)
+![screenshot](./.screenshot/screenshot.jpg)
 
 ### Build& Deploy
 
