@@ -1,11 +1,15 @@
 html {
-  background-color: #fdf6e3;
+  background-color: #ffffff;
 }
 
 body {
-  background-color: #fdf6e3;
+  color: #ffffff;
   padding: 0px;
   font: 14px "Sans-serif", Helvetica, Arial, sans-serif;
+}
+
+.page {
+  margin-top: 60px;
 }
 
 a {

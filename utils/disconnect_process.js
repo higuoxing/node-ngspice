@@ -4,11 +4,16 @@ module.exports = {
     const fs = require('fs');
     const tmp_file_path = require('../configs/default').tmp_file_path;
     try {
+      // delte sp file
       await fs.unlink(tmp_file_path + socket.id + '-test.sp', (err) => {
         if (err) {
           console.log(err);
         }
       });
+      // delete lib files
+      // FIXME: add
+      
+      // delete data file
       await fs.unlink(tmp_file_path + socket.id + '-test.data', (err) => {
         if (err) {
           console.log(err);

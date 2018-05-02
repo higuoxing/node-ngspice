@@ -1,0 +1,29 @@
+ Init: read install configuration file: C:\synopsys\Hspice2004.09\meta.cfg
+ ******  HSPICE    -- W-2004.09  (20040730) 16:52:04  12/01/2011  pcnt         
+  Copyright (C) 2004 Synopsys, Inc. All Rights Reserved.                       
+  Unpublished-rights reserved under US copyright laws.
+  This program is protected by law and is subject to the 
+  terms and conditions of the license agreement found in:
+    C:\synopsys\Hspice2004.09\license.txt
+  Use of this program is your acceptance to be bound by this 
+  license agreement. HSPICE is the trademark of Synopsys, Inc.
+  Input File: d:\projects\课程\vlsi\“vlsi系统导论”课件\device_spice\hspice_dem
+  lic:  
+  lic: FLEXlm: v8.4b 
+  lic: USER:   hp                   HOSTNAME: hp-8180 
+  lic: HOSTID: d48564bece97         PID:      3920 
+  lic: Using FLEXlm license file: 
+  lic: c:\license.dat 
+  lic: Checkout hspicewin;  Encryption code: 8C4E55DFEA2DE5EAF9EA 
+  lic: Notice: NOT TO BE SOLD 
+  lic: License/Maintenance for hspicewin will expire on 31-dec-2050/2004.9 
+  lic: NODE LOCKED DEMO license on host d48564bece97 
+  lic:   
+ Init: read install configuration file: C:\synopsys\Hspice2004.09\meta.cfg
+ Init: hspice initialization file: C:\synopsys\Hspice2004.09\hspice.ini
+  .lib '<ModelFile>' MOS
+
+ **error** could not find library file named
+ <ModelFile>                                                                                                                                                                                                                                                    
+
+  lic: Release hspicewin token(s) 
