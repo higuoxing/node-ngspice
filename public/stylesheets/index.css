@@ -16,6 +16,17 @@ textarea {
     font-family: monospace;
 }
 
+
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn.active.focus {
+  outline: none;
+  box-shadow: none;
+}
+
 .form-control {
   margin-top: 10px;
 }
