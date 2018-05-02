@@ -79,7 +79,7 @@ module.exports = {
         const readline = require('readline');
         readline.createInterface({
           // create file read stream
-          input: fs.createReadStream(tmp_file_path + 'test.data'),
+          input: fs.createReadStream(tmp_file_path + socket.id + '-test.data'),
           terminal: false
         }).on('line', (line) => {
           /* about parsing line, please refer ngspice manual: 17.5.88 Wrdata */
