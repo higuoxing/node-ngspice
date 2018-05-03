@@ -7,8 +7,7 @@ Node ❤ NGSPICE. (Frontend for NGSPICE)
 
 ### Screenshots
 
-![screenshot](./.screenshot/screenshot_0.jpg)
-![screenshot](./.screenshot/screenshot_1.jpg)
+![screenshot](./.screenshot/screenshot.jpg)
 
 ### Build& Deploy
 
@@ -18,6 +17,10 @@ $ cd node-ngspice
 $ npm install
 $ node ./bin/www
 ```
+
+#### NOTICE
+
+> ⚠️ After testing, this project currently works well on CentOS and macOS...
 
 ### How to use
 
@@ -48,7 +51,7 @@ And special thanks to [Online-NgSpice-Simulator](https://github.com/FOSSEE/Onlin
 
 ### TODO
 
-- [ ] Server message implement
+- [x] Server message implement
 - [ ] Full documents
 - [ ] Code highlight
 - [ ] Rewrite using `Vue.js`

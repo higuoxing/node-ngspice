@@ -14,8 +14,12 @@ module.exports = {
 
     socket.on('netlist-data', async (data) => {
       const netlist_data_process = require('./netlist_data').netlist_data_process;
-      let res = await netlist_data_process(data, socket);
-      socket.emit('netlist-data', res);
+      try {
+        let res = await netlist_data_process(data, socket);
+        socket.emit('netlist-data', res);
+      } catch (e) {
+        socket.emit('server-msg', { type: 'error', msg: 'Oops! Unknown Error' })
+      }
     });
 
     socket.on('disconnect', async (data) => {
