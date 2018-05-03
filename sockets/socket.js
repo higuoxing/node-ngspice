@@ -18,7 +18,6 @@ module.exports = {
         let res = await netlist_data_process(data, socket);
         socket.emit('netlist-data', res);
       } catch (e) {
-        console.log(e);
         socket.emit('server-msg', { type: 'error', msg: 'Oops! Unknown Error' })
       }
     });

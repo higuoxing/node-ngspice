@@ -18,6 +18,10 @@ $ npm install
 $ node ./bin/www
 ```
 
+#### NOTICE
+
+> ⚠️ After testing, this project currently works well on CentOS and macOS...
+
 ### How to use
 
 This application is to plot vectors in ngspice. The plot option should be written in JSON form.
