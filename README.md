@@ -51,7 +51,7 @@ And special thanks to [Online-NgSpice-Simulator](https://github.com/FOSSEE/Onlin
 
 ### TODO
 
-- [ ] Server message implement
+- [x] Server message implement
 - [ ] Full documents
 - [ ] Code highlight
 - [ ] Rewrite using `Vue.js`
