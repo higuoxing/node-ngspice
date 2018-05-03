@@ -6,6 +6,7 @@ block content
   //- script(src='/javascripts/lib/jquery.highlight-within-textarea.js')
   script(src='https://cdn.plot.ly/plotly-latest.min.js')
   script(src='https://code.jquery.com/jquery-3.2.1.min.js')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js')
   div(class='page')
     div(class="container")
       div(class="row")
@@ -51,7 +52,7 @@ block content
                 | .end
               div(class='warning-wrapper')
                 div(class='warning-wrapper')
-                  strong(class='warning') ⚠️ Warning: Your data will be cleared after closing this page;)
+                  strong(class='warning') ⚠️ Warning: Your data will be cleared after closing this page...
                 button(id='save-netlist', style='color: #ffffff; border: none', class='btn-link')
                   span(class="badge badge-warning badge-pill") Press me
                 strong to save Netlist
@@ -66,9 +67,10 @@ block content
             |  {"name": "v(out)", "curve": "v(out)"}]
           div(class="buttonArea input-group")
             button(id="run-code", class="btn btn-success input-group-btn", style='margin: 5px 5px 5px; width: 120px;') Run Code
-            label(for='select-file', class='btn btn-success', style='margin: 5px 5px 5px; display: inline-block;') Select Lib
-              input(type="file", class="form-control-file", id="select-file", style='display: none;')
-            input(id='upload-button', type='button', class='btn btn-success input-group-btn', style='margin: 5px 5px 5px; width: 120px;', value='Upload Lib')
+            form(id='file-form', enctype="multipart/form-data", method="post", action='/upload', name="file-form")
+              label(for='select-file', class='btn btn-success', style='margin: 5px 5px 5px; display: inline-block; width: 120px;') Select Lib
+                input(id='select-file', type="file", name='lib', class="form-control-file", style='display: none;', onchange='handleFiles(this.files[0])')
+              input(id='upload-button', type='submit', class='btn btn-success input-group-btn', style='margin: 5px 5px 5px; width: 120px;', value='Upload Lib')
             button(id="clear-plot", class="btn btn-danger input-group-btn", style='margin: 5px 5px 5px; width: 120px;') Clear Plots
         div(class='terminal', style='width: 500px;')
           //- div(class='terminal', style='width=600px')
@@ -122,32 +124,39 @@ block content
     
   script.
     // upload-btn ajax
-    $(document).ready(function () {
-      $("#upload-button").click(function () {
-        let file = document.getElementById('select-file').files[0];
-        if (file) {
-          $.ajax({
-            type: "POST",
-            url: "/upload",
-            enctype: 'multipart/form-data',
-            data: {
-              file: file.name
-            },
-            success: function (res) {
-              // create a success label
-              createTerminalMSG(res);
-            },
-            error: function (res) {
-              // create a fail label
-              console.log(res);
-            }
-          });
-        } else {
-          createTerminalMSG({ type: 'error', msg: 'Please select your Lib firstly!' });
-        }
+    $(function() {            
+      $('#file-form').ajaxForm({                 
+        beforeSubmit: handleFiles,
+        success: SubmitSuccesful,
+        error: AjaxError                               
       });
     });
+
+    function AjaxError() {
+      createTerminalMSG({ type: 'error', msg: 'Oops! Unknown error! Refresh your page' });
+    }
+
+    function SubmitSuccesful(response, status) {        
+      createTerminalMSG(response);
+    }
     
+    function handleFiles(file, jqForm, options) {
+      let data = {};
+      if (file.type != 'text/plain' && !jqForm && !options) {
+        data = {
+          type: 'error',
+          msg: 'Please upload a text file which end up with ".txt"'
+        }
+        createTerminalMSG(data);
+        // remove input file
+      } else if (file.type == 'text/plain' && !jqForm && !options) {
+        data = {
+          type: 'success',
+          msg: 'Great! You could upload: ' + file.name
+        }
+        createTerminalMSG(data);
+      }
+    }
   script.
     // button callback event
     let netlist_content = document.getElementById('netlist');
