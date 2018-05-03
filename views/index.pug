@@ -5,6 +5,7 @@ block content
   //- link(rel='stylesheet', href='/stylesheets/lib/jquery.highlight-within-textarea.css')
   //- script(src='/javascripts/lib/jquery.highlight-within-textarea.js')
   script(src='https://cdn.plot.ly/plotly-latest.min.js')
+  script(src='https://code.jquery.com/jquery-3.2.1.min.js')
   div(class='page')
     div(class="container")
       div(class="row")
@@ -15,20 +16,20 @@ block content
                 p(style='float: right; margin: 5px 5px 5px 5px; font-size: 15px;') First time? Read the 
                   a(href='#') tutorial
                   | &nbsp!
-              textarea(class="form-control", spellcheck='false', id="netlist", rows="16", style='border: 2px solid #000000; border-radius: 5px;')
+              textarea(class="form-control", spellcheck='false', id="netlist", rows="17", style='border: 2px solid #000000; border-radius: 5px;')
                 //- Example file
                 | *** RF switch circuit ***
-                |  * Author: Xing GUO
-                |  * Example file
-                |  * Input source
-                |  vs 1 0 dc 0V ac 1V sin(0V 1V 100MegHz 20ns 0)
-                |  Rs in 1 50ohm
+                | * Author: Xing GUO
+                | * Example file
+                | * Input source
+                | vs 1 0 dc 0V ac 1V sin(0V 1V 100MegHz 20ns 0)
+                | Rs in 1 50ohm
                 |
                 | * Switch
                 | Ci in 4 1.6nF
                 | Rb 4 3 2.1k
                 | Lc1 3 2 100uH
-                | D1 4 50 mydiode
+                | D1 4 50 diode
                 | vmeter 50 5 dc 0
                 | Lc2 5 0 100uH
                 | cout 5 out 1.6n
@@ -39,7 +40,7 @@ block content
                 | * DC biasing
                 | vcc 2 0 5V
                 |             
-                | .model mydiode d (is=1e-15A n=1)
+                | .model diode d (is=1e-15A n=1)
                 |
                 | .tran .1ns 100ns
                 |
@@ -53,7 +54,7 @@ block content
                   strong(class='warning') ⚠️ Warning: Your data will be cleared after closing this page;)
                 button(id='save-netlist', style='color: #ffffff; border: none', class='btn-link')
                   span(class="badge badge-warning badge-pill") Press me
-                strong &nbsp to save Netlist
+                strong to save Netlist
         div(class='plot-edge', id='plot-edge', style='margin-top: 35px; width: 500px; height: 465px; border: 2px solid #000000; border-radius: 5px;')
           div(class="plot", id="plot", style='margin: 10px 10px 10px 10px;')
       div(class='row')
@@ -64,17 +65,17 @@ block content
             |  {"name": "v(4,5)", "curve": "v(4,5)"},
             |  {"name": "v(out)", "curve": "v(out)"}]
           div(class="buttonArea input-group")
-            button(id="run-code", class="btn btn-success input-group-btn", style='margin-right: 5px; width: 120px;') Run Code
-            input(type="file", class="form-control-file", id="file", style='display: none;')
-            input(id='upload-button', type='button', class='btn btn-success input-group-btn', style='margin-right: 5px; width: 120px;', value='Upload Lib')
-            button(id="clear-plot", class="btn btn-danger input-group-btn", style='margin-right: 5px; width: 120px;') Clear Plots
-            
+            button(id="run-code", class="btn btn-success input-group-btn", style='margin: 5px 5px 5px; width: 120px;') Run Code
+            label(for='select-file', class='btn btn-success', style='margin: 5px 5px 5px; display: inline-block;') Select Lib
+              input(type="file", class="form-control-file", id="select-file", style='display: none;')
+            input(id='upload-button', type='button', class='btn btn-success input-group-btn', style='margin: 5px 5px 5px; width: 120px;', value='Upload Lib')
+            button(id="clear-plot", class="btn btn-danger input-group-btn", style='margin: 5px 5px 5px; width: 120px;') Clear Plots
         div(class='terminal', style='width: 500px;')
           //- div(class='terminal', style='width=600px')
           //-   h4(class='terminal-title') Info Area
           h4(class='terminal-title', style='margin-top: 10px;') Terminal Output
           div(class='terminal-edge', style='border: 2px solid #000000; border-radius: 5px;')
-            div(id='terminal', class='terminal-text-area', style='margin-top: 5px; margin-bottom: 5px; margin-right: 5px;margin-left: 5px; height:125px; overflow:auto;')
+            div(id='terminal', class='terminal-text-area', style='margin-top: 5px; margin-bottom: 5px; margin-right: 5px;margin-left: 5px; height:130px; overflow:auto;')
               div(class='initial-info')
                 span(class='badge badge-success') success
                 span &nbsp;
@@ -90,24 +91,60 @@ block content
     socket.on('loading-page', function (data) {
       socket.emit('socket-id', { socket_id: socket.id });
     });
+
+  script.
+    // create terminal msg
+    function createTerminalMSG(data) {
+      let div = document.createElement('div');
+      let badge = document.createElement('span');
+      let text = '';
+      if (data.type == 'success') {
+        text = document.createTextNode(' success ');
+        badge.className = 'badge badge-success';
+      } else if (data.type == 'info') {
+        text = document.createTextNode(' info ');
+        badge.className = 'badge badge-info';
+      } else if (data.type == 'error') {
+        text = document.createTextNode(' error ');
+        badge.className = 'badge badge-danger';
+      }
+      badge.appendChild(text);
+      div.appendChild(badge);
+      let blank = document.createElement('span');
+      text = document.createTextNode(' ');
+      div.appendChild(text);
+      let msg = document.createElement('span');
+      text = document.createTextNode(data.msg);
+      div.appendChild(text);
+      terminal.appendChild(div);
+      terminal.scrollTop = terminal.scrollHeight;
+    }
     
   script.
     // upload-btn ajax
     $(document).ready(function () {
       $("#upload-button").click(function () {
-        let filename = $("file").val();
-        
-        $.ajax({
-          type: "POST",
-          url: "/upload",
-          enctype: 'multipart/form-data',
-          data: {
-              file: filename
-          },
-          success: function () {
-              alert("Data Uploaded: ");
-          }
-        });
+        let file = document.getElementById('select-file').files[0];
+        if (file) {
+          $.ajax({
+            type: "POST",
+            url: "/upload",
+            enctype: 'multipart/form-data',
+            data: {
+              file: file.name
+            },
+            success: function (res) {
+              // create a success label
+              createTerminalMSG(res);
+            },
+            error: function (res) {
+              // create a fail label
+              console.log(res);
+            }
+          });
+        } else {
+          createTerminalMSG({ type: 'error', msg: 'Please select your Lib firstly!' });
+        }
       });
     });
     
@@ -161,51 +198,7 @@ block content
     // display server message
     socket.on('server-msg', (data) => {
       let terminal = document.getElementById('terminal');
-      if (data.type == 'error') {
-        let div = document.createElement('div');
-        let badge = document.createElement('span');
-        let text = document.createTextNode(' error ');
-        badge.className = 'badge badge-danger';
-        badge.appendChild(text);
-        div.appendChild(badge);
-        let blank = document.createElement('span');
-        text = document.createTextNode(' ');
-        div.appendChild(text);
-        let msg = document.createElement('span');
-        text = document.createTextNode(data.msg);
-        div.appendChild(text);
-        terminal.appendChild(div);
-      } else if (data.type == 'info') {
-        let div = document.createElement('div');
-        let badge = document.createElement('span');
-        let text = document.createTextNode(' info ');
-        badge.className = 'badge badge-info';
-        terminal.appendChild(div);
-        badge.appendChild(text);
-        div.appendChild(badge);
-        let blank = document.createElement('span');
-        text = document.createTextNode(' ');
-        div.appendChild(text);
-        let msg = document.createElement('span');
-        text = document.createTextNode(data.msg);
-        div.appendChild(text);
-        terminal.appendChild(div);
-      } else if (data.type == 'success') {
-        let div = document.createElement('div');
-        let badge = document.createElement('span');
-        let text = document.createTextNode(' success ');
-        badge.className = 'badge badge-success';
-        badge.appendChild(text);
-        div.appendChild(badge);
-        let blank = document.createElement('span');
-        text = document.createTextNode(' ');
-        div.appendChild(text);
-        let msg = document.createElement('span');
-        text = document.createTextNode(data.msg);
-        div.appendChild(text);
-        terminal.appendChild(div);
-      }
-      terminal.scrollTop = terminal.scrollHeight;
+      createTerminalMSG(data);
     });
     
   //- plotly.js things
@@ -236,12 +229,14 @@ block content
           curve_names[data.label_info[data.curves[i].belong_to]] = 1;
         }
         
-        traces.push({ x: data.curves[i].x, 
-                      y: data.curves[i].y, 
-                      connectgaps: false, 
-                      showlegend: showLegend,
-                      name: data.label_info[data.curves[i].belong_to],
-                      marker: {color: colors[data.curves[i].belong_to]}});
+        traces.push({ 
+          x: data.curves[i].x, 
+          y: data.curves[i].y, 
+          connectgaps: false, 
+          showlegend: showLegend,
+          name: data.label_info[data.curves[i].belong_to],
+          marker: {color: colors[data.curves[i].belong_to]}
+        });
       }
       Plotly.newPlot('plot', traces, layout);
     });
