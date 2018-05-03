@@ -36,26 +36,18 @@ module.exports = {
 
     // write to tmp file
     await fs.writeFile(tmp_file_path + socket.id + '-test.sp',
-<<<<<<< HEAD
-      netlist.netlist,
-      (err) => {
-        if (err) throw err;
-=======
+
       netlist.netlist, (err) => {
         if (err) {
           // do nothing
           console.log(err);
         }
->>>>>>> master
     });
 
     // write plot option
     setTimeout(function() {
-<<<<<<< HEAD
-=======
+
       try {
-        //ngspice.stdin.write('set ngbehavior=ps\n');
->>>>>>> master
         ngspice.stdin.write('source ' + tmp_file_path + socket.id + '-test.sp\n');
         ngspice.stdin.write('wrdata ' + tmp_file_path + socket.id + '-test.data ' + label_info.map((item) => { return item.curve; }).join(' '));
         ngspice.stdin.end();
@@ -93,46 +85,7 @@ module.exports = {
       ngspice.on('close', async (code) => {
         console.log(`child process exited with code ${code}`);
         const readline = require('readline');
-<<<<<<< HEAD
-        readline.createInterface({
-          // create file read stream
-          input: fs.createReadStream(tmp_file_path + socket.id + '-test.data'),
-          terminal: false
-        }).on('line', (line) => {
-          /* about parsing line, please refer ngspice manual: 17.5.88 Wrdata */
-          if (line) {
-            /*
-             * flags = [{
-             *   direction_of_sequence: Int, // sequence
-             *   value: Float,               // value
-             *   value_position: Int,        // value position
-             *   belong_to: Int,             // curve color will depend on this
-             *   new_curve: Boolean }]       // new curve indicator
-             *   active: Boolean }]          // active indicator
-             * */
-            let prev_flags = new_flags;
-            new_flags = parse_data_line(line, prev_flags);
-            /*
-             * return new_flags
-             * flags = [{
-             *   direction_of_sequence: Int,     // sequence
-             *   value: { x: Float, y: Float },  // value
-             *   value_position: Int,            // value position
-             *   belong_to: Int,                 // curve color will depend on this
-             *   new_curve: Boolean,             // new curve indicator
-             *   active: Boolean }]              // active indicator
-             * */
-            for (let pair of new_flags.flags) {
-              if (pair.new_curve) {
-                // push a new curve into res.curves
-                res.curves.push({ x: [pair.value.x], y: [pair.value.y], belong_to: pair.belong_to });
-              } else {
-                // if not a new curve just add it to an existed curve
-                res.curves[pair.value_position].x.push(pair.value.x);  // push x value
-                res.curves[pair.value_position].y.push(pair.value.y);  // push y value
-              }
-            }
-=======
+
         let stats = fs.stat(tmp_file_path + socket.id + '-test.data', (err, stat) => {
           if (stat && stat.isFile()) {
             let rf = readline.createInterface({
@@ -186,7 +139,7 @@ module.exports = {
           } else {
             console.log(stat)
             reject();
->>>>>>> master
+
           }
         });
       });
