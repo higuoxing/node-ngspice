@@ -3,6 +3,7 @@ module.exports = {
 
     // loading page signal
     socket.emit('loading-page', { load: 'loading-page' });
+    socket.emit('server-msg', { type: 'error', msg: 'Uploading external lib files currently is not supported : )' })
 
     // socket router
     socket.on('socket-id', async (data) => {
