@@ -47,7 +47,7 @@ This application is to plot vectors in ngspice. The plot option should be writte
 * Plotly.js
 * NGSPICE
 
-And special thanks to [Online-NgSpice-Simulator](https://github.com/FOSSEE/Online-NgSpice-Simulator)
+And specially thanks to [Online-NgSpice-Simulator](https://github.com/FOSSEE/Online-NgSpice-Simulator)
 
 ### TODO
 
