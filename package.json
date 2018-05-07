@@ -1,22 +1,23 @@
 {
-  "name": "node-ngspice",
-  "version": "0.0.0",
-  "private": true,
+  "name": "ngspice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "start": "node ./bin/www"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Higuoxing/node-ngspice.git"
+  },
+  "author": "Xing GUO",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/Higuoxing/node-ngspice/issues"
+  },
+  "homepage": "https://github.com/Higuoxing/node-ngspice#readme",
   "dependencies": {
-    "cookie-parser": "~1.4.3",
-    "debug": "~2.6.9",
-    "express": "~4.16.0",
-    "express-session": "^1.15.6",
-    "http-errors": "~1.6.2",
-    "morgan": "~1.9.0",
-    "multer": "^1.3.0",
-    "pug": "2.0.0-beta11",
-    "socket.io": "^2.1.0"
-  },
-  "devDependencies": {
-    "ws": "3.3.2"
+    "ffi": "^2.2.0",
+    "npm": "^6.0.0"
   }
 }
