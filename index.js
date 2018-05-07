@@ -1,34 +1,37 @@
 const ffi = require('ffi');
 
-const sendChar = ffi.Callback('int', ['string', 'int', 'pointer'], 
+const sendChar = ffi.Callback('int', ['string', 'int', 'pointer'],
   // callback: SendChar
   // return type: int
   // args: ['string', 'int', 'void*']
   (res, status, user_data) => {
-    // do nothing
-    console.log('res: ' + res + '\n');
-    console.log('status: '+ status + '\n');
-    console.log('user-data: ' + user_data);
+    console.log('send-char: \n');
+    console.log('  res: ' + res + '\n');
+    console.log('  status: '+ status + '\n');
+    console.log('  user-data: ' + user_data + '\n');
   });
 
-const sendStat = ffi.Callback('int', ['string', 'int', 'pointer'], 
+const sendStat = ffi.Callback('int', ['string', 'int', 'pointer'],
   // callback: SendStat
   // return type: int
   // args: ['string', 'int', 'void*']
-  (/* args */) => {
-    // do nothing
+  (res, status, user_data) => {
+    console.log('send-state: \n');
+    console.log('  res: ' + res + '\n');
+    console.log('  status: '+ status + '\n');
+    console.log('  user-data: ' + user_data + '\n');
   });
 
-const BGThreadRunning = ffi.Callback('int', ['bool', 'int', 'pointer'], 
+const BGThreadRunning = ffi.Callback('int', ['bool', 'int', 'pointer'],
   // callback: BGThreadRunning
   // return type: int
   // args: ['bool', 'int', 'void*']
   (/* args */) => {
     // do nothing
-  
+
   });
 
-const controlledExit = ffi.Callback('int', ['int', 'bool', 'bool', 'int', 'pointer'], 
+const controlledExit = ffi.Callback('int', ['int', 'bool', 'bool', 'int', 'pointer'],
   // callback: ControlledExit
   // return type: int
   // args: ['int', 'bool', 'int', 'void*']
@@ -40,21 +43,28 @@ const sendData = ffi.Callback('int', ['pointer', 'int', 'int', 'pointer'],
   // callback: SendData
   // return type: int
   // args: ['pointer', 'int', 'int', 'pointer']
-  (/* args */) => {
-    // do nothing
+  (vdata, res, status, user_data) => {
+    console.log('send-state: \n');
+    console.log('  vdata' + vdata + '\n');
+    console.log('  res: ' + res + '\n');
+    console.log('  status: '+ status + '\n');
+    console.log('  user-data: ' + user_data + '\n');
   });
 
-const sendInitData = ffi.Callback('int', ['pointer', 'int', 'pointer'], 
+const sendInitData = ffi.Callback('int', ['pointer', 'int', 'pointer'],
   // callback: SendInitData
   // return type: int
   // args: ['pointer', 'int', 'pointer']
-  (/* args */) => {
-    // do nothing
+  (vdata, status, user_data) => {
+    console.log('send-init-data: \n');
+    console.log('  vdata' + vdata + '\n');
+    console.log('  status: '+ status + '\n');
+    console.log('  user-data: ' + user_data + '\n');
   });
 
-const libngspice = ffi.Library('./libngspice', {
+const libngspice = ffi.Library('./libngspice/libngspice', {
   // 'func-name': ['return-type', [ 'args' ]]
-  'ngSpice_Init': ['int', 
+  'ngSpice_Init': ['int',
     ['pointer', 'pointer', 'pointer', 'pointer', 'pointer', 'pointer', 'pointer']],
   'ngSpice_Command': ['int', ['string']],
   'ngSpice_Circ': ['int', ['pointer']],
@@ -62,3 +72,5 @@ const libngspice = ffi.Library('./libngspice', {
 });
 
 libngspice.ngSpice_Init(sendChar, sendStat, controlledExit, sendData, sendInitData, BGThreadRunning, null);
+libngspice.ngSpice_Command('source ./test.cir');
+libngspice.ngSpice_Command('run');
