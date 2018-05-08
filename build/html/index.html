@@ -1,0 +1,125 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>欢迎! &#8212; node-ngspice  文档</title>
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/css/index.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="nav-item nav-item-0"><a href="#">node-ngspice  文档</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">內容目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">欢迎!</a></li>
+<li><a class="reference internal" href="#id2">简介</a><ul>
+<li><a class="reference internal" href="#spice">1.1 关于SPICE</a></li>
+<li><a class="reference internal" href="#ngspice">1.2 关于NGSPICE</a></li>
+<li><a class="reference internal" href="#id4">1.3 关于node-ngspice</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id5">如何使用</a></li>
+<li><a class="reference internal" href="#id6">更多示例</a></li>
+<li><a class="reference internal" href="#id7">相关资源</a></li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="转向" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>欢迎!<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>欢迎阅读该文档！在这里您会学到如何优雅地使用本仿真软件，以及一些应付日常使用 <code class="docutils literal notranslate"><span class="pre">ngspice</span></code> 的基础知识。也包含 <code class="docutils literal notranslate"><span class="pre">node-ngspice</span></code> 的基本原理，实现细节等，我们也十分期待您对这个工具的贡献，无论是在 <a class="reference external" href="https://github.com/higuoxing/node-ngspice">GitHub</a> 提出 <code class="docutils literal notranslate"><span class="pre">ISSUE/PR</span></code> ，亦或是帮助我们测试代码/编写文档教程，我们都不胜感激！当然，如果这个工具/教程确实帮到了你，请不要吝啬给我们一个 <a class="reference external" href="https://github.com/Higuoxing/node-ngspice/stargazers">Star</a></p>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+<div class="section" id="id2">
+<h1>简介<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h1>
+<div class="section" id="spice">
+<h2>1.1 关于SPICE<a class="headerlink" href="#spice" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">SPICE</span></code> 是一款用于电路仿真的软件，它的全称是 <code class="docutils literal notranslate"><span class="pre">Simulation</span> <span class="pre">Program</span> <span class="pre">with</span> <span class="pre">Integrated</span> <span class="pre">Circuit</span> <span class="pre">Emphasis</span></code> 。 <code class="docutils literal notranslate"><span class="pre">SPICE</span></code> 软件的来历可以追溯到1969年，一位来自 <code class="docutils literal notranslate"><span class="pre">U.C.</span> <span class="pre">Berkeley</span></code> 叫做 <code class="docutils literal notranslate"><span class="pre">Ronald</span> <span class="pre">Rohrer</span></code> 的教授把一个叫做 <code class="docutils literal notranslate"><span class="pre">CANCER</span> <span class="pre">(Computer</span> <span class="pre">Analysis</span> <span class="pre">of</span> <span class="pre">Nonlinear</span> <span class="pre">Circuits,</span> <span class="pre">Excluding</span> <span class="pre">Radiation)</span></code> 的项目当做了学生的课程设计，这便是 <code class="docutils literal notranslate"><span class="pre">SPICE</span></code> 的前身。其中有位学生名叫 <code class="docutils literal notranslate"><span class="pre">Laurence</span> <span class="pre">W.</span> <span class="pre">Nagel</span></code>，他在课程结束后，把 <code class="docutils literal notranslate"><span class="pre">CANCER</span></code> 项目当做了他的硕士以及博士时期的课题，继续研究了下去。也许你已经发现了，<code class="docutils literal notranslate"><span class="pre">CANCER</span></code> 恰恰是癌症的英语单词，这也就是当时 <code class="docutils literal notranslate"><span class="pre">CANCER</span></code> 没能在工业界广泛应用的主要原因，所以 <code class="docutils literal notranslate"><span class="pre">Nagel</span></code> 给他的程序重新起了一个名字 <code class="docutils literal notranslate"><span class="pre">SPICE</span> <span class="pre">1</span></code>， <code class="docutils literal notranslate"><span class="pre">SPICE</span></code> 诞生了！</p>
+<p>以上历史来源于 <code class="docutils literal notranslate"><span class="pre">Nagel</span></code> 的有关 <code class="docutils literal notranslate"><span class="pre">SPICE</span></code> 起源的文章 <a class="reference external" href="http://www.omega-enterprises.net/The%20Origins%20of%20SPICE.html">The-Origins-of-SPICE</a> ，有兴趣的读者可以自行阅读。</p>
+</div>
+<div class="section" id="ngspice">
+<h2>1.2 关于NGSPICE<a class="headerlink" href="#ngspice" title="永久链接至标题">¶</a></h2>
+<p><a class="reference external" href="http://ngspice.sourceforge.net">NGSPICE</a> 是一个根据三款开源软件 <a class="reference external" href="http://embedded.eecs.berkeley.edu/pubs/downloads/spice">Spice3f5</a>, <a class="reference external" href="http://www-cad.eecs.berkeley.edu/Software/cider.html">Cider1b1</a> 以及 <a class="reference external" href="http://users.ece.gatech.edu/~mrichard/Xspice">Xspice</a> 编写出来的 <code class="docutils literal notranslate"><span class="pre">SPICE</span></code> 软件，现在仍在维护，并且有很大的可靠性。相比于昂贵的 <code class="docutils literal notranslate"><span class="pre">hspice</span></code> 等闭源软件，是一个十分理想的替代品。同时，很多优秀的开源 <code class="docutils literal notranslate"><span class="pre">EDA</span></code> 软件也以 <code class="docutils literal notranslate"><span class="pre">NGSPICE</span></code> 作为后端仿真软件，例如： <a class="reference external" href="https://www.autodesk.com/products/eagle/overview">EAGLE</a> 、<a class="reference external" href="https://easyeda.com">easyEDA</a> 以及 <a class="reference external" href="http://kicad-pcb.org">KiCAD</a> 等。当然，我们的 <a class="reference external" href="https://github.com/higuoxing/node-ngspice">node-ngspice</a> 也以 <code class="docutils literal notranslate"><span class="pre">NGSPICE</span></code> 作为后端软件。</p>
+<p>以上介绍源于 <a class="reference external" href="http://ngspice.sourceforge.net">NGSPICE</a> 官方页面，里边也包含许多有用的资料比如 <code class="docutils literal notranslate"><span class="pre">NGSPICE</span></code> 手册/教程等等，有兴趣的读者可以自行查阅。</p>
+</div>
+<div class="section" id="id4">
+<h2>1.3 关于node-ngspice<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">node-ngspice</span></code> 是我在大三时上 <code class="docutils literal notranslate"><span class="pre">VLSI</span></code> 课程时为 <code class="docutils literal notranslate"><span class="pre">NGSPICE</span></code> 随手写的一个网页前端。主要是因为 <code class="docutils literal notranslate"><span class="pre">NGSPICE</span></code> 自带的前端画图功能太过陈旧，不够美观，故重写了一个较好看的前端，最初只是给自己应付作业使用，后来发现大家比较认可，甚至 <code class="docutils literal notranslate"><span class="pre">easyEDA</span></code> 的一位核心开发者给我发了邮件鼓励我，我也十分开心，于是部署了这个前端项目，希望能给大家提供一点方便，做一点微小的工作。同时，编写了这个 <code class="docutils literal notranslate"><span class="pre">wiki</span></code> 页面，旨在帮助更多的初学者了解 <code class="docutils literal notranslate"><span class="pre">SPICE</span></code> 类软件的基本使用，为推广开源软件做一点微不足道的贡献。</p>
+</div>
+</div>
+<div class="section" id="id5">
+<h1>如何使用<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h1>
+</div>
+<div class="section" id="id6">
+<h1>更多示例<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h1>
+</div>
+<div class="section" id="id7">
+<h1>相关资源<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h1>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="nav-item nav-item-0"><a href="#">node-ngspice  文档</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2018, Xing GUO.
+      由 <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4 创建。
+    </div>
+  </body>
+</html>
