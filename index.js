@@ -7,8 +7,8 @@ const sendChar = ffi.Callback('int', ['string', 'int', 'pointer'],
   // callback: SendChar
   // return type: int
   // args: ['string', 'int', 'void*']
-  (res, id, user_data) => {
-    if (res.match(/stdout/)) {
+  (_res, _id, _user_data) => {
+    if (_res.match(/stdout/)) {
       // console.log(res.replace(/stdout\ /, ''));
     } else {
       // console.log('error');
@@ -21,7 +21,7 @@ const sendStat = ffi.Callback('int', ['string', 'int', 'pointer'],
   // callback: SendStat
   // return type: int
   // args: ['string', 'int', 'void*']
-  (res, id, user_data) => {
+  (_res, _id, _user_data) => {
     // console.log(res);
     return 0;
   });
@@ -30,7 +30,7 @@ const BGThreadRunning = ffi.Callback('int', ['bool', 'int', 'pointer'],
   // callback: BGThreadRunning
   // return type: int
   // args: ['bool', 'int', 'void*']
-  (no_bgrun, id, pointer) => {
+  (_no_bgrun, _id, _user_data) => {
     // console.log(no_bgrun);
     return 0;
   });
@@ -39,18 +39,18 @@ const controlledExit = ffi.Callback('int', ['int', 'bool', 'bool', 'int', 'point
   // callback: ControlledExit
   // return type: int
   // args: ['int', 'bool', 'int', 'void*']
-  (exit_status, immediate, normal_exit, id, user_data) => {
+  (_exit_status, _immediate, _normal_exit, _id, _user_data) => {
     // console.log(exit_status);
     // console.log(immediate);
     // console.log(normal_exit);
-    return exit_status;
+    return _exit_status;
   });
 
 const sendData = ffi.Callback('int', [struct.p_vec_values_all, 'int', 'int', 'pointer'],
   // callback: SendData
   // return type: int
   // args: ['pointer', 'int', 'int', 'pointer']
-  (_vdata, res, id, user_data) => {
+  (_vdata, _res, _id, _user_data) => {
     // let vdata = _vdata.deref();
     // console.log(vdata.vecsa.deref().deref());
     return 0;
@@ -60,7 +60,7 @@ const sendInitData = ffi.Callback('int', [struct.p_vec_info_all, 'int', 'pointer
   // callback: SendInitData
   // return type: int
   // args: ['pointer', 'int', 'pointer']
-  (_vec_info, id, user_data) => {
+  (_vec_info, _id, _user_data) => {
     // vdata
     let vec_info = _vec_info.deref();
     console.log(vec_info);
@@ -78,7 +78,7 @@ const libngspice = ffi.Library('./libngspice/libngspice', {
 });
 
 libngspice.ngSpice_Init(sendChar, sendStat, controlledExit, sendData, sendInitData, BGThreadRunning, null);
-libngspice.ngSpice_Command('source ./test.cir');
+libngspice.ngSpice_Command('source examples/4-bit-all-nand-gate-binary-adder.cir');
 // libngspice.ngSpice_Command('run');
 libngspice.ngSpice_Command('run');
 let vec_info = libngspice.ngGet_Vec_Info('v(2)');
