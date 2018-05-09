@@ -3,17 +3,13 @@ const ref = require('ref');
 const ref_struct = require('ref-struct');
 const struct = require('./wrapper/struct');
 
+
 const sendChar = ffi.Callback('int', ['string', 'int', 'pointer'],
-  // callback: SendChar
-  // return type: int
-  // args: ['string', 'int', 'void*']
   (_res, _id, _user_data) => {
-    if (_res.match(/stdout/)) {
-      // console.log(res.replace(/stdout\ /, ''));
-    } else {
-      // console.log('error');
-      // console.log(res.replace(/stderr\ /, ''));
-    }
+    // callback: SendChar
+    // return type: int
+    // args: ['string', 'int', 'void*']
+    console.log(_res);
     return 0;
   });
 
@@ -51,8 +47,8 @@ const sendData = ffi.Callback('int', [struct.p_vec_values_all, 'int', 'int', 'po
   // return type: int
   // args: ['pointer', 'int', 'int', 'pointer']
   (_vdata, _res, _id, _user_data) => {
-    // let vdata = _vdata.deref();
-    // console.log(vdata.vecsa.deref().deref());
+    let vdata = _vdata.deref();
+    console.log(vdata);
     return 0;
   });
 
@@ -63,23 +59,22 @@ const sendInitData = ffi.Callback('int', [struct.p_vec_info_all, 'int', 'pointer
   (_vec_info, _id, _user_data) => {
     // vdata
     let vec_info = _vec_info.deref();
-    console.log(vec_info);
     return 0;
   });
 
 const libngspice = ffi.Library('./libngspice/libngspice', {
   // 'func-name': ['return-type', [ 'args' ]]
-  'ngSpice_Init': ['int',
+  'ngSpice_Init'     : ['int'                 ,
     ['pointer', 'pointer', 'pointer', 'pointer', 'pointer', 'pointer', 'pointer']],
-  'ngSpice_Command': ['int', ['string']],
-  'ngSpice_Circ': ['int', ['pointer']],
-  'ngGet_Vec_Info': [struct.p_vector_info, ['string']],
-  'ngSpice_running': ['bool', [ /* empty args */ ]]
+  'ngSpice_Command'  : ['int'                 ,  ['string'          ]],
+  'ngSpice_Circ'     : ['int'                 ,  ['pointer'         ]],
+  'ngGet_Vec_Info'   : [struct.p_vector_info  ,  ['string'          ]],
+  'ngSpice_running'  : ['bool'                ,  [ /* empty args */ ]],
+  'ngSpice_CurPlot'  : ['string'              ,  [ /* empty args */ ]],
+  'ngSpice_AllVecs'  : [ref.refType('string') ,  ['string'          ]]
 });
 
 libngspice.ngSpice_Init(sendChar, sendStat, controlledExit, sendData, sendInitData, BGThreadRunning, null);
 libngspice.ngSpice_Command('source examples/4-bit-all-nand-gate-binary-adder.cir');
 // libngspice.ngSpice_Command('run');
 libngspice.ngSpice_Command('run');
-let vec_info = libngspice.ngGet_Vec_Info('v(2)');
-console.log(vec_info.deref());
