@@ -66,3 +66,4 @@ uploads/*
 tmp/*
 .DS_Store
 example/*
+*.log
