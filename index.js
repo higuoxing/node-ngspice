@@ -63,8 +63,7 @@ const sendInitData = ffi.Callback('int', [struct.p_vec_info_all, 'int', 'pointer
   (_vec_info, id, user_data) => {
     // vdata
     let vec_info = _vec_info.deref();
-    // console.log(vec_info);
-    console.log(vec_info)
+    console.log(vec_info);
     return 0;
   });
 
@@ -74,6 +73,7 @@ const libngspice = ffi.Library('./libngspice/libngspice', {
     ['pointer', 'pointer', 'pointer', 'pointer', 'pointer', 'pointer', 'pointer']],
   'ngSpice_Command': ['int', ['string']],
   'ngSpice_Circ': ['int', ['pointer']],
+  'ngGet_Vec_Info': [struct.p_vector_info, ['string']],
   'ngSpice_running': ['bool', [ /* empty args */ ]]
 });
 
@@ -81,3 +81,5 @@ libngspice.ngSpice_Init(sendChar, sendStat, controlledExit, sendData, sendInitDa
 libngspice.ngSpice_Command('source ./test.cir');
 // libngspice.ngSpice_Command('run');
 libngspice.ngSpice_Command('run');
+let vec_info = libngspice.ngGet_Vec_Info('v(2)');
+console.log(vec_info.deref());
