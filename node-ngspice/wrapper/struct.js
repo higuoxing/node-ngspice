@@ -1,14 +1,14 @@
 const ref = require('ref');
-const struct = require('ref-struct');
+const c_struct = require('ref-struct');
 
-const _ng_complex = struct({
+const _ng_complex = c_struct({
   // complex number struct
   // you should know this!
   'ng_real' : 'double',
   'ng_imag' : 'double'
 });
 
-const _vector_info = struct({
+const _vector_info = c_struct({
   // vector  name : name of this vector
   // vector  type :
   // vector  flag :
@@ -24,7 +24,7 @@ const _vector_info = struct({
 });
 const _p_vector_info = ref.refType(_vector_info);
 
-const _vec_info = struct({
+const _vec_info = c_struct({
   // v_index     : index of this vector
   // v_name      : the name of this vector
   // v_is_real   : indicate if this vector is a complex vector
@@ -38,7 +38,7 @@ const _vec_info = struct({
 });
 const _p_vec_info = ref.refType(_vec_info);
 
-const _vec_info_all = struct({
+const _vec_info_all = c_struct({
   // c_name      : name of this circuit
   // c_title     : circuit of this circuit
   // c_date      : date of this simulation
@@ -54,7 +54,7 @@ const _vec_info_all = struct({
 });
 const _p_vec_info_all = ref.refType(_vec_info_all);
 
-const _vec_values = struct({
+const _vec_values = c_struct({
   // p_name        : name of this point
   // p_real        : real part of this point
   // p_imag        : image part of this point
@@ -68,7 +68,7 @@ const _vec_values = struct({
 });
 const _p_vec_values = ref.refType(_vec_values);
 
-const _vec_values_all = struct({
+const _vec_values_all = c_struct({
   // veccount : numbers of vectors
   // vecindex : vecindex
   // vecsa    :

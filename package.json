@@ -19,7 +19,6 @@
   "dependencies": {
     "ffi": "^2.2.0",
     "npm": "^6.0.0",
-    "ref-array": "^1.2.0",
     "ref-struct": "^1.1.0"
   }
 }
