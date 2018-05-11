@@ -78,8 +78,22 @@ const _vec_values_all = c_struct({
 });
 const _p_vec_values_all = ref.refType(_vec_values_all);
 
+// static methods
+const _methods_structure = {
+  // 'func-name': ['return-type', [ 'args' ]]
+  'ngSpice_Init'     : ['int'                 ,
+    ['pointer', 'pointer', 'pointer', 'pointer', 'pointer', 'pointer', 'pointer']],
+  'ngSpice_Command'  : ['int'                 ,  ['string'          ]],
+  'ngSpice_Circ'     : ['int'                 ,  ['pointer'         ]],
+  'ngGet_Vec_Info'   : [_p_vector_info        ,  ['string'          ]],
+  'ngSpice_running'  : ['bool'                ,  [ /* empty args */ ]],
+  'ngSpice_CurPlot'  : ['string'              ,  [ /* empty args */ ]],
+  'ngSpice_AllVecs'  : [ref.refType('string') ,  ['string'          ]]
+}
+
 module.exports = {
-  p_vec_values_all : _p_vec_values_all,
-  p_vector_info    : _p_vector_info,
-  p_vec_info_all   : _p_vec_info_all
+  p_vec_values_all  : _p_vec_values_all,
+  p_vector_info     : _p_vector_info,
+  p_vec_info_all    : _p_vec_info_all,
+  methods_structure : _methods_structure
 }
