@@ -1,3 +1,3 @@
 # node-ngspice
 
-Node ❤ NGSPICE - Node.js binding for NGSPICE
+Node ❤ NGSPICE - Node.js bindings for NGSPICE

@@ -1,12 +1,14 @@
 const ref = require('ref');
 const c_struct = require('ref-struct');
 
+
 const _ng_complex = c_struct({
   // complex number struct
   // you should know this!
   'ng_real' : 'double',
   'ng_imag' : 'double'
 });
+
 
 const _vector_info = c_struct({
   // vector  name : name of this vector
@@ -24,6 +26,7 @@ const _vector_info = c_struct({
 });
 const _p_vector_info = ref.refType(_vector_info);
 
+
 const _vec_info = c_struct({
   // v_index     : index of this vector
   // v_name      : the name of this vector
@@ -37,6 +40,7 @@ const _vec_info = c_struct({
   'v_pd_scale'   : ref.refType('void')
 });
 const _p_vec_info = ref.refType(_vec_info);
+
 
 const _vec_info_all = c_struct({
   // c_name      : name of this circuit
@@ -54,6 +58,7 @@ const _vec_info_all = c_struct({
 });
 const _p_vec_info_all = ref.refType(_vec_info_all);
 
+
 const _vec_values = c_struct({
   // p_name        : name of this point
   // p_real        : real part of this point
@@ -68,6 +73,7 @@ const _vec_values = c_struct({
 });
 const _p_vec_values = ref.refType(_vec_values);
 
+
 const _vec_values_all = c_struct({
   // veccount : numbers of vectors
   // vecindex : vecindex
@@ -77,6 +83,7 @@ const _vec_values_all = c_struct({
   'v_a'       : ref.refType(_p_vec_values),
 });
 const _p_vec_values_all = ref.refType(_vec_values_all);
+
 
 // static methods
 const _methods_structure = {
@@ -88,12 +95,69 @@ const _methods_structure = {
   'ngGet_Vec_Info'   : [_p_vector_info        ,  ['string'          ]],
   'ngSpice_running'  : ['bool'                ,  [ /* empty args */ ]],
   'ngSpice_CurPlot'  : ['string'              ,  [ /* empty args */ ]],
-  'ngSpice_AllVecs'  : [ref.refType('string') ,  ['string'          ]]
+  'ngSpice_AllPlots' : ['string'              ,  [ /* empty args */ ]],
+  'ngSpice_AllVecs'  : [ref.refType('string') ,  ['string'          ]],
+  'ngSpice_SetBkpt'  : ['bool'                ,  [ /* empty args */ ]]
 }
 
+function _send_char_c(_msg, _ng_id, _user_data) {
+  console.log(_msg);
+  return ((msg) => { console.log(msg); return 0; })(_msg);
+}
+
+
+function _send_stat_c(_msg, _ng_id, _user_data) {
+
+  return 0;
+}
+
+
+function _send_data_c(_vdata, _msg, _ng_id, _user_data) {
+  let vdata = _vdata.deref();
+  return 0;
+}
+
+
+function _send_init_data_c(_vec_info, _ng_id, _user_data) {
+  // vdata
+  let vec_info = _vec_info.deref();
+  // for (let offset = 0; offset < vec_info.c_vec_count; offset ++) {
+  //   console.log(ref.get(vec_info.c_vecs, 8 * offset).deref());
+  // }
+  return 0;
+}
+
+
+function _bg_thread_running_c(_no_bgrun, _ng_id, _user_data) {
+  // console.log(no_bgrun);
+  return 0;
+}
+
+
+function _controlled_exit_c(_exit_status, _immediate, _normal_exit, _id, _user_data) {
+  return _exit_status;
+}
+
+// typedef int (GetVSRCData)(double*, double, char*, int, void*);
+// typedef int (GetISRCData)(double*, double, char*, int, void*);
+// typedef int (GetSyncData)(double, double*, double, int, int, int, void*);
+
+// int  ngSpice_Init_Sync(GetVSRCData* vsrcdat, GetISRCData* isrcdat, GetSyncData* syncdat, int* ident, void* userData);
+//
+
 module.exports = {
-  p_vec_values_all  : _p_vec_values_all,
-  p_vector_info     : _p_vector_info,
-  p_vec_info_all    : _p_vec_info_all,
-  methods_structure : _methods_structure
+
+  // data structs
+  p_vec_values_all    : _p_vec_values_all    ,
+  p_vector_info       : _p_vector_info       ,
+  p_vec_info_all      : _p_vec_info_all      ,
+  methods_structure   : _methods_structure   ,
+
+  // static methods
+  send_char_c         : _send_char_c         ,
+  send_stat_c         : _send_stat_c         ,
+  send_data_c         : _send_data_c         ,
+  send_init_data_c    : _send_init_data_c    ,
+  bg_thread_running_c : _bg_thread_running_c ,
+  controlled_exit_c   : _controlled_exit_c   
 }

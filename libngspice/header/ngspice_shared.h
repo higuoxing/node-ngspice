@@ -10,7 +10,9 @@ struct ngcomplex {
     double cx_imag;
 } ;
 
+
 typedef struct ngcomplex ngcomplex_t;
+
 
 typedef struct vector_info {
     char *v_name;
@@ -21,6 +23,7 @@ typedef struct vector_info {
     int v_length;
 } vector_info, *pvector_info;
 
+
 typedef struct vecvalues {
     char* name;
     double creal;
@@ -29,11 +32,13 @@ typedef struct vecvalues {
     bool is_complex;
 } vecvalues, *pvecvalues;
 
+
 typedef struct vecvaluesall {
     int veccount;
     int vecindex;
     pvecvalues *vecsa;
 } vecvaluesall, *pvecvaluesall;
+
 
 typedef struct vecinfo
 {
@@ -43,6 +48,7 @@ typedef struct vecinfo
     void *pdvec;
     void *pdvecscale;
 } vecinfo, *pvecinfo;
+
 
 typedef struct vecinfoall
 {
@@ -55,6 +61,8 @@ typedef struct vecinfoall
     pvecinfo *vecs;
 
 } vecinfoall, *pvecinfoall;
+
+
 typedef int (SendChar)(char*, int, void*);
 typedef int (SendStat)(char*, int, void*);
 typedef int (ControlledExit)(int, bool, bool, int, void*);
@@ -67,7 +75,6 @@ typedef int (GetSyncData)(double, double*, double, int, int, int, void*);
 
 int  ngSpice_Init(SendChar* printfcn, SendStat* statfcn, ControlledExit* ngexit,
                   SendData* sdata, SendInitData* sinitdata, BGThreadRunning* bgtrun, void* userData);
-
 int  ngSpice_Init_Sync(GetVSRCData* vsrcdat, GetISRCData* isrcdat, GetSyncData* syncdat, int* ident, void* userData);
 
 int  ngSpice_Command(char* command);
