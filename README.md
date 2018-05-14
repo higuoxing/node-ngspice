@@ -1,7 +1,9 @@
 # node-ngspice
-Node ❤ NGSPICE. (Frontend for NGSPICE)
+> Node ❤ NGSPICE. 
 
 [![Build Status](https://travis-ci.org/Higuoxing/node-ngspice.svg?branch=master)](https://travis-ci.org/Higuoxing/node-ngspice)
+
+For NgSpice node-binding, check: [binding-dev](https://github.com/Higuoxing/node-ngspice/tree/binding-dev), still working on this :)
 
 > A simple frontend IDE based on Node.js for *NGSPICE* users :) enjoy it!
 
