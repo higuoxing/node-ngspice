@@ -1,4 +1,4 @@
-# node-ngspice
+# node-ngspice (WIP)
 > Node ❤ NGSPICE. 
 
 [![Build Status](https://travis-ci.org/Higuoxing/node-ngspice.svg?branch=master)](https://travis-ci.org/Higuoxing/node-ngspice)
