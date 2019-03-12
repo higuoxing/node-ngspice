@@ -1,9 +1,7 @@
 # node-ngspice (WIP)
 > Node ❤ NGSPICE. 
 
-[![Build Status](https://travis-ci.org/Higuoxing/node-ngspice.svg?branch=master)](https://travis-ci.org/Higuoxing/node-ngspice)
-
-For NgSpice node-binding, check: [binding-dev](https://github.com/Higuoxing/node-ngspice/tree/binding-dev), still working on this :)
+For NgSpice node-binding, check: [binding-dev](https://github.com/bosoncat/node-ngspice/tree/binding-dev), still working on this :)
 
 > A simple frontend IDE based on Node.js for *NGSPICE* users :) enjoy it!
 
@@ -60,4 +58,4 @@ And many thanks to [Online-NgSpice-Simulator](https://github.com/FOSSEE/Online-N
 
 ### Contribution
 
-This is a `Learn by Doing` project, and I want to modified it using `Vue.js`... And if you are interested in this project, please feel free to contact me! <higuoxing@gmail.com> :)
+This is a `Learn by Doing` project, and I want to modified it using `Vue.js`... And if you are interested in this project, please feel free to contact me!
